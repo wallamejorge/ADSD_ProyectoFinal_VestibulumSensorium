@@ -1,0 +1,31 @@
+//////////////////////////////////////////////////////////////
+////////////     Codigos Basicos BeagleBone        ///////////
+//////////////////////////////////////////////////////////////
+
+1.//------Conect BeagleBone to PC-------//
+1.1     Conectar BeagleBone a la pc por usb
+1.2     Abrir terminal de linux
+1.3     terminal: ping 192.168.7.2  
+1.4     terminal: ssh -X root@192.168.7.2
+1.5     Nota: No hay password
+//----------------------------------------//
+
+1.a//------Conect Server2 to PC-------//
+1.1.a     Descargar aplicación en el otro dispositivo (de ser necesario) para ser manejado como servidor
+1.2.a     Abrir terminal de linux
+1.3.a     terminal: ping IPServer2  
+1.4.a     terminal: ssh -X usuario@IPServer2 -P #puerto
+1.5.a     Nota1: el #puerto puede ser,por ejemplo ,2222 
+1.6.a     Nota2: Password asignado por el usuario
+//----------------------------------------//
+
+
+2.//------Copiar archivo a PC u otro server-------//
+2.1     Abrir terminal de la Beagle (Pasos 1) 
+// Caso PC
+2.2.PC     terminal: scp archivo.c NombredelCliente@IPCLiente:/directorio/directorio/directorio
+// Caso server diferente
+2.2.S      terminal: scp -P #puerto archivo.c NombredelCliente@IPCLiente:/directorio/directorio/directorio 
+//El #puerto por ejemplo puede ser 2222 
+//----------------------------------------//
+
