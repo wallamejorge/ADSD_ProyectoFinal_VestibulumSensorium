@@ -29,3 +29,8 @@
 //El #puerto por ejemplo puede ser 2222 
 //----------------------------------------//
 
+3.//------Comando para enviar salida de consola------//
+3.1 dato >> archivo.txt
+3.2 comando | tee archivo.txt
+//---------------------------------------------------//
+
