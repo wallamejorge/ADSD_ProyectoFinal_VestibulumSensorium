@@ -42,3 +42,8 @@
 5//--------Abir editor de codigo--------------//
 5.1 http://192.168.7.2:3000/
 //----------------------------------------------//
+
+
+6.//--------Compilar dentro de la BeagleBone-------//
+6.1   Entrar dentro de la beaglebone por consola (pasos 1)
+6.2   ejecutar arm-angstrom-linux-gnueabi-gcc -o nombredelejecutable nombredemiprogramaenC.c
