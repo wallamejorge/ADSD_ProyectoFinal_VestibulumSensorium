@@ -14,11 +14,11 @@ FILE *gplot = popen("gnuplot -persist","w");
   fprintf(gplot, "set output 'Plot_Data.png'\n");
   fprintf(gplot, "set multiplot layout 1,2 rowsfirst \n");
   
-  fprintf(gplot, "set title 'R(t)'\n");
+  fprintf(gplot, "set title 'x1(t)'\n");
   fprintf(gplot, "unset key\n");
   fprintf(gplot, "plot 'Data.txt' using 1:2\n");
   
-  fprintf(gplot, "set title 'V(t)'\n");
+  fprintf(gplot, "set title 'x2(t)'\n");
   fprintf(gplot, "unset key\n");
   fprintf(gplot, "plot 'Data.txt' using 1:3\n");
 
