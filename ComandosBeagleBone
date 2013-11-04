@@ -47,3 +47,11 @@
 6.//--------Compilar dentro de la BeagleBone-------//
 6.1   Entrar dentro de la beaglebone por consola (pasos 1)
 6.2   ejecutar arm-angstrom-linux-gnueabi-gcc -o nombredelejecutable nombredemiprogramaenC.c
+//---------------------------------------------------//
+
+7//-----------Copiar archivos desde la PC a la beagle------------//
+7.1  scp archivolocal usuario@maquina_remota:archivoremoto
+//---------------------------------------------------------------//
+
+
+
