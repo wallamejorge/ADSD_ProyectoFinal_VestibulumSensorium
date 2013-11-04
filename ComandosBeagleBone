@@ -1,32 +1,32 @@
 //////////////////////////////////////////////////////////////
-////////////     Codigos Basicos BeagleBone        ///////////
+//////////// Codigos Basicos BeagleBone ///////////
 //////////////////////////////////////////////////////////////
 
 1.//------Conect BeagleBone to PC-------//
-1.1     Conectar BeagleBone a la pc por usb
-1.2     Abrir terminal de linux
-1.3     terminal: ping 192.168.7.2  
-1.4     terminal: ssh -X root@192.168.7.2
-1.5     Nota: No hay password
+1.1 Conectar BeagleBone a la pc por usb
+1.2 Abrir terminal de linux
+1.3 terminal: ping 192.168.7.2
+1.4 terminal: ssh -X root@192.168.7.2
+1.5 Nota: No hay password
 //----------------------------------------//
 
 1.a//------Conect Server2 to PC-------//
-1.1.a     Descargar aplicación en el otro dispositivo (de ser necesario) para ser manejado como servidor
-1.2.a     Abrir terminal de linux
-1.3.a     terminal: ping IPServer2  
-1.4.a     terminal: ssh -X usuario@IPServer2 -P #puerto
-1.5.a     Nota1: el #puerto puede ser,por ejemplo ,2222 
-1.6.a     Nota2: Password asignado por el usuario
+1.1.a Descargar aplicación en el otro dispositivo (de ser necesario) para ser manejado como servidor
+1.2.a Abrir terminal de linux
+1.3.a terminal: ping IPServer2
+1.4.a terminal: ssh -X usuario@IPServer2 -P #puerto
+1.5.a Nota1: el #puerto puede ser,por ejemplo ,2222
+1.6.a Nota2: Password asignado por el usuario
 //----------------------------------------//
 
 
 2.//------Copiar archivo a PC u otro server-------//
-2.1     Abrir terminal de la Beagle (Pasos 1) 
+2.1 Abrir terminal de la Beagle (Pasos 1)
 // Caso PC
-2.2.PC     terminal: scp archivo.c NombredelCliente@IPCLiente:/directorio/directorio/directorio
+2.2.PC terminal: scp archivo.c NombredelCliente@IPCLiente:/directorio/directorio/directorio
 // Caso server diferente
-2.2.S      terminal: scp -P #puerto archivo.c NombredelCliente@IPCLiente:/directorio/directorio/directorio 
-//El #puerto por ejemplo puede ser 2222 
+2.2.S terminal: scp -P #puerto archivo.c NombredelCliente@IPCLiente:/directorio/directorio/directorio
+//El #puerto por ejemplo puede ser 2222
 //----------------------------------------//
 
 3.//------Comando para enviar salida de consola------//
@@ -38,3 +38,17 @@
 4.//--------Arreglar problema de known hosts--------//
 4.1 rm -rf /root/.ssh/known_hosts
 //---------------------------------------------------//
+
+5//--------Abir editor de codigo--------------//
+5.1 http://192.168.7.2:3000/
+//----------------------------------------------//
+
+
+6.//--------Compilar dentro de la BeagleBone-------//
+6.1 Entrar dentro de la beaglebone por consola (pasos 1)
+6.2 ejecutar arm-angstrom-linux-gnueabi-gcc -o nombredelejecutable nombredemiprogramaenC.c
+//---------------------------------------------------//
+
+7//-----------Copiar archivos desde la PC a la beagle------------//
+7.1 scp archivolocal usuario@maquina_remota:archivoremoto
+//---------------------------------------------------------------//

@@ -7,6 +7,7 @@ Codigo:20111082
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include "BBBio.h"
 int main(int argc, char **argv)
 {
 FILE *gplot = popen("gnuplot -persist","w");
@@ -25,3 +26,4 @@ FILE *gplot = popen("gnuplot -persist","w");
 
   close(gplot);
 }
+
