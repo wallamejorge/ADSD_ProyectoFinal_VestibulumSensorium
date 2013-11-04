@@ -39,9 +39,8 @@ void test_DigitalInput(void);
 int main(int argc, char **argv)
 {
   Welcome();
-  FILE *TestConsole= popen("echo high > /sys/class/gpio/gpio44/direction","w");
-  fprintf(TestConsole, "echo low > /sys/class/gpio/gpio44/direction");
-  fclose(TestConsole);
+  FILE *P8_12Console= popen("echo high > /sys/class/gpio/gpio44/direction","w");
+  fclose(P8_12Console);
 }
 //---------------------------------------------------//
 
