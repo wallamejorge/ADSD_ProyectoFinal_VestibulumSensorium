@@ -1,7 +1,7 @@
 /* 
  ___________________________________________________________________________________
 |                                                                                   |
-|Nombre:BlinkingLed.c                                                               |
+|Nombre:SETPIN.c                                                               |
 |Compilador:ARM                                                                     |
 |Entradas:ninguna                                                                   |
 |Salidas:Mensaje de Bienvenida en bash y led P8_12 enciende                         |
@@ -38,16 +38,11 @@ void Welcome(void);
 //--------------------------------------------------//
 int main(int argc, char **argv)
 {
-  int pinIn=44;
-  int pinOut=60;
-  int entrada=0;
+  int pin=44;
+  int time=1;
   Welcome();
-  while (1==1){
-  entrada=PIN_VALUE(pinIn);
-  printf("El valor del pin es :%d \n",entrada);
-  if(entrada==0){PIN_OFF(pinOut);}
-  else{PIN_ON(pinOut);}
-} 
+  PIN_ON(pin);
+
 }
 //---------------------------------------------------//
 
@@ -62,15 +57,11 @@ void Welcome(void)
   printf("|..............................|\n");
   printf("|BEAGLEBONE BLACK.....is alive!|\n");
   printf("|..............................|\n");
-  printf("|....Welcome to BlinkingLed....|\n");
+  printf("|....Welcome to SetPin.........|\n");
   printf("|..............................|\n");
   printf("|______________________________|\n");
 }
 //---------------------------------------------------//
-
-
-
-
 
 
 

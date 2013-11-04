@@ -38,11 +38,16 @@ void Welcome(void);
 //--------------------------------------------------//
 int main(int argc, char **argv)
 {
-  int pin=44;
-  int time=1;
+  int pinIn=44;
+  int pinOut=60;
+  int entrada=0;
   Welcome();
-  PIN_BLINKING(pin);
-
+  while (1==1){
+  entrada=PIN_VALUE(pinIn);
+  printf("El valor del pin es :%d \n",entrada);
+  if(entrada==0){PIN_OFF(pinOut);}
+  else{PIN_ON(pinOut);}
+} 
 }
 //---------------------------------------------------//
 

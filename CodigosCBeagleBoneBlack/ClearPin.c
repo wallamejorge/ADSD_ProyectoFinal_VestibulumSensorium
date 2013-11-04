@@ -1,10 +1,10 @@
 /* 
  ___________________________________________________________________________________
 |                                                                                   |
-|Nombre:BlinkingLed.c                                                               |
+|Nombre:CLEARPIN.c                                                                  |
 |Compilador:ARM                                                                     |
 |Entradas:ninguna                                                                   |
-|Salidas:Mensaje de Bienvenida en bash y led P8_12 enciende                         |
+|Salidas:Mensaje de Bienvenida en bash y led P8_12 se apaga                         |
 |Autores : Jorge Luis Mayorga Taborda, Monica Tuta Fajardo, Juan Felipe Martinez    |
 |___________________________________________________________________________________|
 
@@ -38,16 +38,10 @@ void Welcome(void);
 //--------------------------------------------------//
 int main(int argc, char **argv)
 {
-  int pinIn=44;
-  int pinOut=60;
-  int entrada=0;
+  int pin=44;
   Welcome();
-  while (1==1){
-  entrada=PIN_VALUE(pinIn);
-  printf("El valor del pin es :%d \n",entrada);
-  if(entrada==0){PIN_OFF(pinOut);}
-  else{PIN_ON(pinOut);}
-} 
+  PIN_OFF(pin); 
+
 }
 //---------------------------------------------------//
 
@@ -62,18 +56,10 @@ void Welcome(void)
   printf("|..............................|\n");
   printf("|BEAGLEBONE BLACK.....is alive!|\n");
   printf("|..............................|\n");
-  printf("|....Welcome to BlinkingLed....|\n");
+  printf("|....Welcome to ClearPin.......|\n");
   printf("|..............................|\n");
   printf("|______________________________|\n");
 }
 //---------------------------------------------------//
-
-
-
-
-
-
-
-
 
 

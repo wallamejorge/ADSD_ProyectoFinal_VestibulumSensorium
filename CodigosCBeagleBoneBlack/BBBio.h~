@@ -8,7 +8,7 @@ void intToChar(int j,char indice[]);
 void PIN_ON(int n);
 void PIN_OFF(int n);
 void PIN_BLINKING(int pin);
-
+int PIN_VALUE(int n);
 
 void PIN_ON(int n)
 {
@@ -45,6 +45,25 @@ void PIN_BLINKING(int pin)
   sleep(1);
 
 }
+}
+
+int PIN_VALUE(int n)
+{
+  FILE *in;
+  char command[100]="/sys/class/gpio/gpio";
+  char no_pin[2]="";
+  int valuePin=0;
+  char comman_end[11]="/value";
+  int j=n;
+  intToChar(j,no_pin);
+  strcat(command,no_pin);
+  strcat(command,comman_end);
+  char caracteres[3];
+  in = fopen(command,"r");
+  fgets(caracteres,2,in);
+  if(caracteres[0]=='1'){valuePin=1;}
+  else {valuePin=0;}
+   fclose(in);
 }
 
 void intToChar(int j,char indice[]){
