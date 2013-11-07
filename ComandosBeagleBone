@@ -62,7 +62,7 @@
 7.1  scp archivolocal usuario@maquina_remota:archivoremoto
 //---------------------------------------------------------------//
 
-8//-------------Habilitación de puertos seriales------------------//
+8//-------------Habilitación de puertos seriales-----------------//
 Se requiere habilitar estos puertos para la utilización del GPS
 8.1 Descargar de la Wiki los paquetes de archivos correspondientes segú el puerto requerido UART1,2,3,4,5. Estos archivos se descargarán automáticamente en el PC
 8.2 Copiar archivos a la beagle Bone Black con los comandos descritos en Makefile
@@ -73,6 +73,6 @@ Se requiere habilitar estos puertos para la utilización del GPS
 8.7 Control de flujo de bits y formato de palabra opción E. Si se quiere una tasa que no está en la lista se selecciona A o B según se requiera.Intro
 8.8 Save setup as dFL
 8.9 Exit (del minicom)
-
+//--------------------------------------------------------------//
 
 >>>>>>> 6e5cbfa3ea3f32c27acee3ffb9698f50657ff670
