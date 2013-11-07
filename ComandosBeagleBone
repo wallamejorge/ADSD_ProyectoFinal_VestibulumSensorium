@@ -65,6 +65,8 @@
 8//-------------Habilitación de puertos seriales------------------//
 Se requiere habilitar estos puertos para la utilización del GPS
 8.1 Descargar de la Wiki los paquetes de archivos correspondientes segú el puerto requerido UART1,2,3,4,5. Estos archivos se descargarán automáticamente en el PC
-8.2
+8.2 Copiar archivos a la beagle Bone Black con los comandos descritos en Makefile
+8.3 Termial: minicom -s ->serial port setup ->  A-> Serial Device: /dev/ttyS1 pasar a tty01-> F-> Hardware Flow Cotrol : No 
+8.4
 
 >>>>>>> 6e5cbfa3ea3f32c27acee3ffb9698f50657ff670
