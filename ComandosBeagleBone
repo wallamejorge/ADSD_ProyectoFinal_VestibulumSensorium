@@ -62,6 +62,9 @@
 7.1  scp archivolocal usuario@maquina_remota:archivoremoto
 //---------------------------------------------------------------//
 
-
+8//-------------Habilitación de puertos seriales------------------//
+Se requiere habilitar estos puertos para la utilización del GPS
+8.1 Descargar de la Wiki los paquetes de archivos correspondientes segú el puerto requerido UART1,2,3,4,5. Estos archivos se descargarán automáticamente en el PC
+8.2
 
 >>>>>>> 6e5cbfa3ea3f32c27acee3ffb9698f50657ff670
