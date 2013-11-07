@@ -66,7 +66,13 @@
 Se requiere habilitar estos puertos para la utilización del GPS
 8.1 Descargar de la Wiki los paquetes de archivos correspondientes segú el puerto requerido UART1,2,3,4,5. Estos archivos se descargarán automáticamente en el PC
 8.2 Copiar archivos a la beagle Bone Black con los comandos descritos en Makefile
-8.3 Termial: minicom -s ->serial port setup ->  A-> Serial Device: /dev/ttyS1 pasar a tty01-> F-> Hardware Flow Cotrol : No 
-8.4
+8.3 Termial: minicom -s 
+8.4 Seleccionar opción serial port setup  
+8.5 Para modificar el puerto a habilitar, seleccionar opción A y modificar /dev/ttyS1 con S el número de puerto a habilitar (0,1,2,3,4,5). Intro
+8.6 Deshabilitar control de flujo: Seleccionar opción F : Hardware Flow Cotrol : No. Intro
+8.7 Control de flujo de bits y formato de palabra opción E. Si se quiere una tasa que no está en la lista se selecciona A o B según se requiera.Intro
+8.8 Save setup as dFL
+8.9 Exit (del minicom)
+
 
 >>>>>>> 6e5cbfa3ea3f32c27acee3ffb9698f50657ff670
