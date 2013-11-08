@@ -64,11 +64,11 @@
 
 8//-------------Habilitación de puertos seriales-----------------//
 Se requiere habilitar estos puertos para la utilización del GPS
-8.1 Descargar de la Wiki los paquetes de archivos correspondientes segú el puerto requerido UART1,2,3,4,5. 
+8.1 Descargar de la Wiki los paquetes de archivos correspondientes según el puerto requerido UART1,2,3,4,5. 
     Estos archivos se descargarán automáticamente en el PC
 8.2 Copiar archivos a la beagle Bone Black con los comandos descritos en Makefile
 8.3 Ejecutar desde terminal  beagle:  $/lib/firmware# export SLOTS=/sys/devices/bone_capemgr.8/slots
-8.4 Ejecutar desde terminal bealge: $/lib/firmware# echo ttyO2_armhf.com > $SLOTS
+8.4 Ejecutar desde terminal bealge: $/lib/firmware# echo ttyO2_armhf.com > $SLOTS. El 2 puede ser reemplazado según el puerto
 8.5 Termial: minicom -s 
 8.6 Seleccionar opción serial port setup  
 8.7 Para modificar el puerto a habilitar, seleccionar opción A y modificar /dev/ttyS1 con S el número de puerto a 
@@ -80,4 +80,10 @@ Se requiere habilitar estos puertos para la utilización del GPS
 8.11 Exit (del minicom)
 //--------------------------------------------------------------//
 
+9//---------------Conexión y obtención de datos GPS-------------//
+9.1 Conectar pines TX y RX de la BeagleBone a los pines de RX y TX, respectivamente. Es decir, TX Beagle con RX GPS 
+    y RX Beagle con TX GPS.
+    Por ejemplo, si se usa el UART2 los pines correspondientes de la Beagle Bone son 21 para TX y 22 para RX.
+9.2 Los datos van a llegar en 6 lineas (GPRMC,GPVTG,GPGGA,GPGSA,GPGSV,GPGLL) donde GPGLL contiene la información de
+    posición del GPS con el formato : longitud,norte/sur,longitud,East/West,Utc Time,V=invalid-A=valid,
 >>>>>>> 6e5cbfa3ea3f32c27acee3ffb9698f50657ff670
