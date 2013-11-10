@@ -9,6 +9,7 @@ void PIN_ON(int n);
 void PIN_OFF(int n);
 void PIN_BLINKING(int pin);
 int PIN_VALUE(int n);
+void HTML_LatLongWrite(char lat[] , char lon[]);
 
 void PIN_ON(int n)
 {
@@ -22,6 +23,8 @@ void PIN_ON(int n)
 FILE *TestConsole= popen(command,"w");
 fclose(TestConsole);
 }
+
+
 
 void PIN_OFF(int n)
 {
@@ -61,9 +64,58 @@ int PIN_VALUE(int n)
   char caracteres[3];
   in = fopen(command,"r");
   fgets(caracteres,2,in);
+  fclose(in);
   if(caracteres[0]=='1'){valuePin=1;}
   else {valuePin=0;}
+   return valuePin;
+}
+
+int ANALOG_READ(int n)
+{
+  FILE *in;
+  char command[100]="/sys/bus/iio/devices/iio:device0/in_voltage";
+  char no_pin[2]="";
+  int valuePin=0;
+  int salida=10;
+  char comman_end[5]="_raw";
+  int j=n;
+  intToChar(j,no_pin);
+  strcat(command,no_pin);
+  strcat(command,comman_end);
+  char caracteres[10];
+  in = fopen(command,"r");
+  fgets(caracteres,10,in);
+  salida= atoi (caracteres);
    fclose(in);
+  return salida;
+}
+
+void HTML_LatLongWrite(char lat[] , char lon[])
+{
+FILE *in;
+in = fopen("main_html.html","r+");
+int fin=feof(in);
+int i=0;
+char caracteres[100];
+char solution[100];
+char cadena1[200] = "center: new google.maps.LatLng( ";
+char cadena2[200] = "4.7199644144551005";
+char cadena3[200] = ",";
+char cadena4[200] = "-74.11788940429688";
+char cadena5[200] = "), \n";
+
+strcat(cadena1,lat);
+strcat(cadena1,cadena3);
+strcat(cadena1,lon);
+strcat(cadena1,cadena5);
+
+while (feof(in) == 0){
+    fgets(caracteres,100,in);
+    i=i+1;
+	if(i==11){fputs( cadena1, in );break;}
+  }
+printf("Vamos bien, se leyo: %s  \n",cadena1);
+printf("Se contaron %d lineas",i);
 }
 
 void intToChar(int j,char indice[]){

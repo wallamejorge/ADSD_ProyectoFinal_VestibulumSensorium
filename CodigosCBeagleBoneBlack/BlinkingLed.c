@@ -38,15 +38,19 @@ void Welcome(void);
 //--------------------------------------------------//
 int main(int argc, char **argv)
 {
-  int pinIn=44;
-  int pinOut=60;
+  int pinIn=60;
+  int pinOut=44;
   int entrada=0;
+  int analogdev=0;
   Welcome();
   while (1==1){
-  entrada=PIN_VALUE(pinIn);
+  /*entrada=PIN_VALUE(pinIn);
   printf("El valor del pin es :%d \n",entrada);
   if(entrada==0){PIN_OFF(pinOut);}
   else{PIN_ON(pinOut);}
+  */
+	entrada=ANALOG_READ(analogdev);
+        printf("El valor del pin es :%d \n",entrada);
 } 
 }
 //---------------------------------------------------//
