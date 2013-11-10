@@ -10,6 +10,7 @@ void PIN_OFF(int n);
 void PIN_BLINKING(int pin);
 int PIN_VALUE(int n);
 void HTML_LatLongWrite(char lat[] , char lon[]);
+void updateGoogleMaps(void);
 
 void PIN_ON(int n)
 {
@@ -114,8 +115,14 @@ while (feof(in) == 0){
     i=i+1;
 	if(i==11){fputs( cadena1, in );break;}
   }
-printf("Vamos bien, se leyo: %s  \n",cadena1);
-printf("Se contaron %d lineas",i);
+//printf("Vamos bien, se leyo: %s  \n",cadena1);
+//printf("Se contaron %d lineas",i);
+}
+
+void updateGoogleMaps(void){
+char command[100]="firefox main_html.html &";
+FILE *TestConsole= popen(command,"r");
+fclose(TestConsole);
 }
 
 void intToChar(int j,char indice[]){
