@@ -39,12 +39,12 @@
 <p>Primero, al abrir la terminal tendremos una ventana del siguente estilo:</p>
 
 <p></p>[[File:BashCapture.png|500px]]
-
-<p>Donde comenzaremos a escribir comandos y familiarizarnos con la consola para trabajar así la beaglebone Black.El primer comando que vamos a utilizar una ves tengamos la BeagleBone Black Conectada a la PC vía USB es :
+<img src="http://img8.uploadhouse.com/fileuploads/18663/186636384238b448f7c2db71c2a9c47c7390d5d6.png" alt="1">
+Donde comenzaremos a escribir comandos y familiarizarnos con la consola para trabajar así la beaglebone Black.El primer comando que vamos a utilizar una ves tengamos la BeagleBone Black Conectada a la PC vía USB es :
      $cd ~
 Lo que nos ubicara en el directorio Home , para comprobar que ha funcionado utilizamos el comando ls ( para  ver los archivos )
      $ls 
-Si todo ha funcionado bien, deberíamos tener una lista de carpetas  y archivos en la terminal con nombres como :</p>
+Si todo ha funcionado bien, deberíamos tener una lista de carpetas  y archivos en la terminal con nombres como :
 
 <p>*Documents ( o Documentos si esta en español) </p>
 
@@ -53,6 +53,7 @@ Si todo ha funcionado bien, deberíamos tener una lista de carpetas  y archivos 
 <p>*Download (o Descargas si esta en español)</p>
 
 <p></p>[[File:lsCapture.png|500px]]
+<img src="http://img2.uploadhouse.com/fileuploads/18663/186636525ddfe8feab9d344f42e0b68ebdf61513.png" alt="1">
 
 <p>Sobre este directorio vamos a ubicar una carpeta para trabajar los archivos fuentes que necesitemos  ( carpeta de trabajo) o si se requiere trabajar en equipo de una forma mas profesional vamos a utilizar un Git  ( alojado en Github.com ) que mas adelante se explicara  en detalle, por ahora es importante organizar nuestro espacio de trabajo.</p>
 
@@ -169,29 +170,33 @@ Si todo ha funcionado bien, deberíamos tener una lista de carpetas  y archivos 
 
 <p>Una vez conectada la BeagleBone Black vía USB al computador abrimos la terminal para verificar la conexión de la BeagleBone Black vamos a utilizar el siguiente comando:</p>
 
-<pre><code> $ping 192.168.7.2
+<pre><code>    $ping 192.168.7.2
 </code></pre>
 
 <p>Este comando establece una conexión de números aleatorios entre la PC y la tarjeta y así se verifica si se esta enviando y recibiendo la información adecuadamente.La consola comenzara a enviar datos aleatorios con el siguiente formato :</p>
 
 <p></p>[[File:pingCapture.png|400px]]
+<img src="http://img7.uploadhouse.com/fileuploads/18663/186636073ac23f45b6a31d9cc161a095e30d5800.png" alt="ping">
 
 <p>==== Conectar la BeagleBone Black mediante SSH====</p>
 
 <p>Una vez confirmada la conexión de la BeagleBone usando el comando $ping podemos intentar conectarnos usando el comando en la consola :</p>
 
-<pre><code>$ssh -X root@192.168.7.2
+<pre><code>   $ssh -X root@192.168.7.2
 </code></pre>
 
 <p>donde el numero 192.168.7.2 es la dirección por default de todas las BeagleBone Black, y el fragmento del comando "-X" realiza una conexión entre el entorno gráfico de Ubuntu y el sistema operativo de la BeagleBone y así poder acceder a las aplicaciones con entorno gráfico como Gedit y Firefox.</p>
 
 <p></p>[[File:sshCapture.png|400px]]
+<img src="http://img6.uploadhouse.com/fileuploads/18663/186636061288b46959337a3202b1af12dd28e4f5.png" alt="1">
 
 <p>y para salir de la BeagleBone y retomar el control sobre la consola podemos utilizar el siguiente comando:</p>
 
-<p>$exit</p>
+<pre><code>   $exit
+</code></pre>
 
 <p></p>[[File:exitCapture.png|400px]]
+<img src="http://img9.uploadhouse.com/fileuploads/18663/18663609584061f4fa64dba56cefb5873643ee27.png" alt="1">
 
 <p>==== Entorno de Programación ====</p>
 
@@ -201,17 +206,20 @@ Si todo ha funcionado bien, deberíamos tener una lista de carpetas  y archivos 
 </code></pre>
 
 <p></p>[[File:beaglehtml.png|400px]]
+<img src="http://img1.uploadhouse.com/fileuploads/18663/18663611e5cde6a2f86a4c71190c0af6f30f30a8.png" alt="1">
 
 <p>En este portal existen varios tutoriales y ejemplos para comenzar a utilizar la BeagleBone Black usando BoneScript.Para comenzar a probar la BeagleBone vamos a analizar el primer ejemplo que encontramos en el portal:</p>
 
 <p></p>[[File:ledstest.png|400px]]
+<img src="http://img8.uploadhouse.com/fileuploads/18663/18663608e017c5bc8eb1193afd9857d287b8155e.png" alt="2">
 
-<p>En este ejemplo se encienden los LEDS USR que habíamos caracterizado anteriormente. En el codigo se utiliza gracias a BoneScript ya existen múltiples funciones para utilizar los periféricos (Hardware)
+<p>En este ejemplo se encienden los LEDS USR que habíamos caracterizado anteriormente. En el código se utiliza gracias a BoneScript ya existen múltiples funciones para utilizar los periféricos (Hardware)
 como por ejemplo la función pinMode() que define si el pin es de salida o de entrada.
-digitalWrite() que permite escribir una señal lógica ( 1 lógico = 3.3v) y usando la funcion se setTimeout se puede mantener el estado de los leds antes de que el código termine y se apaguen los leds.
+digitalWrite() que permite escribir una señal lógica ( 1 lógico = 3.3v) y usando la función se setTimeout se puede mantener el estado de los leds antes de que el código termine y se apaguen los leds.
 Para probar este ejemplo solo basta seleccionar "run" .</p>
 
 <p></p>[[File:LEDStest.png|400px]]
+<img src="http://img5.uploadhouse.com/fileuploads/18663/18663605cb803dfe1ca2b472ed49250990914496.png" alt="2">
 
 <p>La BeagleBone viene con un entorno de desarrollo para programar en BoneScript,C,java,etc. Llamado Cloud9 al cual se puede acceder mediante Firefox ingresando la siguente url:</p>
 
@@ -219,6 +227,7 @@ Para probar este ejemplo solo basta seleccionar "run" .</p>
 </code></pre>
 
 <p></p>[[File:cloud9.png|400px]]
+<img src="http://img0.uploadhouse.com/fileuploads/18663/18663610384215dd5bc3fcad1e434a3483f8ed73.png" alt="1">
         </section>
 
         <footer>
