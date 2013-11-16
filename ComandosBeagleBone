@@ -87,3 +87,8 @@ Se requiere habilitar estos puertos para la utilización del GPS
 9.2 Los datos van a llegar en 6 lineas (GPRMC,GPVTG,GPGGA,GPGSA,GPGSV,GPGLL) donde GPGLL contiene la información de
     posición del GPS con el formato : longitud,norte/sur,longitud,East/West,Utc Time,V=invalid-A=valid,
 >>>>>>> 6e5cbfa3ea3f32c27acee3ffb9698f50657ff670
+
+
+
+//------------------------------------------------------------------//
+scp root@192.168.7.2:directorioBeagle/archivo.txt ~/directoriopc/
