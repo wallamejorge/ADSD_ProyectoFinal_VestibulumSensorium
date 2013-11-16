@@ -8,8 +8,8 @@ int main(void)
 {
   printf("BEAGLEBONE BLACK.....is alive!\n");
   printf("..............................\n");
-  char lat[200] = "35.689506";
-  char lon[200] = "139.6917";
+  char lat[200] = "35.789506";
+  char lon[200] = "137.6917";
   HTML_LatLongWrite(lat,lon);
   updateGoogleMaps();
   return 0;

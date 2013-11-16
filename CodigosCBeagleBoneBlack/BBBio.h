@@ -47,7 +47,6 @@ void PIN_BLINKING(int pin)
   sleep(1);
   PIN_ON(pin);
   sleep(1);
-
 }
 }
 
@@ -98,11 +97,8 @@ in = fopen("main_html.html","r+");
 int fin=feof(in);
 int i=0;
 char caracteres[100];
-char solution[100];
 char cadena1[200] = "center: new google.maps.LatLng( ";
-char cadena2[200] = "4.7199644144551005";
 char cadena3[200] = ",";
-char cadena4[200] = "-74.11788940429688";
 char cadena5[200] = "), \n";
 
 strcat(cadena1,lat);
@@ -115,8 +111,6 @@ while (feof(in) == 0){
     i=i+1;
 	if(i==11){fputs( cadena1, in );break;}
   }
-//printf("Vamos bien, se leyo: %s  \n",cadena1);
-//printf("Se contaron %d lineas",i);
 }
 
 void updateGoogleMaps(void){

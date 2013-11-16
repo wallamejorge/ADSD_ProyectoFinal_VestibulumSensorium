@@ -11,7 +11,7 @@ int main(void)
   char lat[200] = "35.689506";
   char lon[200] = "139.6917";
   HTML_LatLongWrite(lat,lon);
-  void updateGoogleMaps();
+  updateGoogleMaps();
   return 0;
 }
 
