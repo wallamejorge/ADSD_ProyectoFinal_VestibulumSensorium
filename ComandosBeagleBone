@@ -92,3 +92,6 @@ Se requiere habilitar estos puertos para la utilización del GPS
 
 //------------------------------------------------------------------//
 scp root@192.168.7.2:directorioBeagle/archivo.txt ~/directoriopc/
+
+
+more /dev/ttyO2 > testjorgegps &
