@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>ADSD VestibulumSensorem Mark - I by wallamejorge</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>ADSD VestibulumSensorem Mark - I</h1>
+          <h2>Proyecto Final ADSD  2013-II con Sensores Ambientales</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/wallamejorge/ADSD_ProyectoFinal_VestibulumSensorium/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/wallamejorge/ADSD_ProyectoFinal_VestibulumSensorium/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/wallamejorge/ADSD_ProyectoFinal_VestibulumSensorium" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h3>
+<a name="conociendo-la-terminal" class="anchor" href="#conociendo-la-terminal"><span class="octicon octicon-link"></span></a>Conociendo la Terminal.</h3>
+
+<p>=== Primeros  Comandos ... creando un directorio ===
+Primero, al abrir la terminal tendremos una ventana del siguente estilo:</p>
+
+<p></p>[[File:BashCapture.png|500px]]
+
+<p>Donde comenzaremos a escribir comandos y familiarizarnos con la consola para trabajar así la beaglebone Black.El primer comando que vamos a utilizar una ves tengamos la BeagleBone Black Conectada a la PC vía USB es :
+     $cd ~
+Lo que nos ubicara en el directorio Home , para comprobar que ha funcionado utilizamos el comando ls ( para  ver los archivos )
+     $ls 
+Si todo ha funcionado bien, deberíamos tener una lista de carpetas  y archivos en la terminal con nombres como :</p>
+
+<p>*Documents ( o Documentos si esta en español) </p>
+
+<p>*Music( o Musica  si esta en español)</p>
+
+<p>*Download (o Descargas si esta en español)</p>
+
+<p></p>[[File:lsCapture.png|500px]]
+
+<p>Sobre este directorio vamos a ubicar una carpeta para trabajar los archivos fuentes que necesitemos  ( carpeta de trabajo) o si se requiere trabajar en equipo de una forma mas profesional vamos a utilizar un Git  ( alojado en Github.com ) que mas adelante se explicara  en detalle, por ahora es importante organizar nuestro espacio de trabajo.</p>
+
+<p>Para escoger un directorio de trabajo utilizamos el comando "cd" que vimos anteriormente pero esta vez nos vamos a mover a una carpeta / directorio diferente a HOME , por ejemplo a Documents :</p>
+
+<pre><code> $cd Documents/
+</code></pre>
+
+<p>TIP: La terminal de Linux tiene una función muy útil y es auto completar las palabras , es decir que si estamos en la carpeta HOME y escribimos cd /Do   y luego la tecla tab (OJO SIN DAR ENTER) y la terminal completara la palabra que estábamos escribiendo, es decir Documents.</p>
+
+<p>Para crear nuestro directorio de trabajo simplemente utilizamos el comando mkdir :</p>
+
+<pre><code> $mkdir WorkFolder 
+</code></pre>
+
+<p>Y se creara en /Documents una carpeta llamada WorkFolder en la cual vamos a trabajar , para acceder a esta carpeta simplemente usamos cd para ingresar</p>
+
+<pre><code>$cd WorkFolder
+</code></pre>
+
+<p>y ya estamos dentro del directorio para crear documentos y todo lo que necesitemos para programar la BeagleBone Black.</p>
+
+<p></p>[[File:mkdirCapture.png|500px]]
+
+<p>=== Primeros Comandos ... creando un Repositorio Git ===</p>
+
+<p>Muchas veces al trabajar código en grupo, o incluso solo para tener un mejor control de las versiones se recomienda el uso de un repositorio como un Git.A diferencia de Dropbox, permite un control mas complejo y sofisticado de los archivos manejados, y gracias a que esta orientado a codigo tiene herramientas para compara lineas donde han habido cambios, hacer comentarios , etc.</p>
+
+<p>¿Que es GIT?</p>
+
+<p>Git es un software de control de versiones de proyectos. Fue desarrollado por Linus Torvalds (el creador de Linux) pensando en una forma de controlar proyectos de programadores en conjunto y como facilitar el trabajo a distancia.</p>
+
+<p>¿Que es GIThub?</p>
+
+<p>GIThub es un entorno social y amigable para el uso de control git. En esta pagina se pueden hacer comentarios, seguir personas, agregar "amigos" y muchas otras funciones de las redes sociales, pero enfocado al desarrollo de software. Esta disponible para linux, mac y windows.</p>
+
+<p>¿Como comenzar?</p>
+
+<p>Primero, hay que tener una cuenta en github, para ello solo se necesita registrarse y listo.(los pasos se enumeran con [.])</p>
+
+<p></p>[[File:githubCapture.png|500px]]
+
+<p>[1] <a href="https://github.com/">https://github.com/</a></p>
+
+<p>[2] Crear cuenta:</p>
+
+<pre><code>    [2.1]Pick a username (selecciona un nombre de usuario)
+
+    [2.2]your email (Asocia un email)
+
+    [2.3]Create a password (crea una contraseña, github exige que tenga al menos un numero)
+
+    [2.4] Sing Up for GitHub (dale click)
+</code></pre>
+
+<p>Una vez se tiene la cuenta en github (usando linux) se puede ser parte de un proyecto o crear uno propio desde el comienzo.Las instrucciones [3] son para la creación de un proyecto nuevo (repositorio) y las instrucciones [4] son para unirse a un proyecto ya existente.</p>
+
+<p>[3] En la pestaña Repositories ( Contributions, Repositories,Public Activity) se encuentran los repositorios ya creados, para crear uno nuevo, nos dirigimos a NEW( all,public,source,forks, mirrors, New).</p>
+
+<p>Después de darle click a new, aparecerá una nueva interfaz para escoger el creador el nombre del repositorio (owner /Repository name).Tambien es importante poner una descripción del repositorio y si el repositorio es de carácter publico o privado (para privado toca pagar ).</p>
+
+<p>Luego (para evitar muchas lineas de código y sufrir después ) es indispensable darle check al cuadro de INITIALIZE THIS REPOSITORY WITH A README y escoger add.gitignore (C,java,pyhton,etc) y un archivo de licencia (GPL :libre libre,Apache:guarda patentes ...).</p>
+
+<p>Listo, ya esta el repositorio creado, podemos ir a nuestro usuario en la esquina superior derecha y ver nuestro usuario una hojita con un +, un destornillador con una llave inglesa y un logo de salir.</p>
+
+<p>Ahora saldrá en nuestra pestaña de Repositories el nuevo Repo que acabamos de crear.</p>
+
+<p>[4]Buscamos la persona dueña del repositorio ( puede ser nosotros mismos) y entramos al repo.</p>
+
+<p>[4.1]Nos aparecerá en la parte superior el nombre del usuario seguido de una slash / y el nombre del repositorio. Abajo la descripción de repositorio y mas abajo el numero de commits hechos, el numero de branchs, el numero de releases y contributors.</p>
+
+<p>[4.2]Debajo de estas estadísticas del git, vemos los archivos dentro del repositorios ( y las carpetas también) con el usuario que realizo la ultima modificación y a que horas.</p>
+
+<p>[4.3] Por ultimo se vera el README del proyecto.</p>
+
+<p>[4.4]Si nos dirigimos a la parte derecha de la pantalla vemos &lt;&gt;Code con información e issues, PUll requests, wiki, pulse, graphs, network, settings y por ultimo y mas importante el HTTP del git.</p>
+
+<p>[4.5]El http del git ( no el del navegador que estaremos viendo en ese momento ) Https clone URL es la información con la cual sincronizaremos nuestra PC con el git ( asi como dropbox). Asi que copiamos esta dirección que sale en HTTPS CLONE URL.</p>
+
+<p>[4.6]Nos dirigimos a nuestra carpeta en linux que queramos usar para trabajar en el proyecto, y desde la terminal usando comandos cd llegamos a ese directorio. Una vez dentro, usamos el comando :</p>
+
+<pre><code>  $git clone "urldelrepositorio.git"
+</code></pre>
+
+<p></p>[[File:gitcloneCapture.png|500px]]
+
+<p>El link se cambiara según el repositorio que se necesite.</p>
+
+<p>Este comando git clone descargara a su computador todo el contenido del git y genera un link (indirecto ) con git.</p>
+
+<p>[4.7] Una vez creada la carpeta del git, trabajamos sobre el proyecto, y a diferencia de Dropbox, este no se actualiza automáticamente, tenemos que darle una serie de comandos para subir los cambios.</p>
+
+<p>[4.8] Los comandos para subir cambios son los siguientes ; lo que este entre %% es para cambiar:</p>
+
+<pre><code>   $git add nombre del archivo
+</code></pre>
+
+<p>o si se desea toda la carpeta seria git add *</p>
+
+<pre><code>   $git commit -m "Mensaje de los cambios hechos"
+
+   $git push
+</code></pre>
+
+<p>donde si todo salio bien deberíamos tener la siguiente imagen en la consola:</p>
+
+<p></p>[[File:gitpushCapture.png|500px]]
+
+<p>y listo , si revisamos la pagina de git en internet estará actualizada con la nueva información.</p>
+
+<p>=== Primeros Comandos ... Conectando la BeagleBone Black a la PC ===</p>
+
+<p>==== Realizar PING entre la BeagleBone Black y la PC====</p>
+
+<p>Una vez conectada la BeagleBone Black vía USB al computador abrimos la terminal para verificar la conexión de la BeagleBone Black vamos a utilizar el siguiente comando:</p>
+
+<pre><code> $ping 192.168.7.2
+</code></pre>
+
+<p>Este comando establece una conexión de números aleatorios entre la PC y la tarjeta y así se verifica si se esta enviando y recibiendo la información adecuadamente.La consola comenzara a enviar datos aleatorios con el siguiente formato :</p>
+
+<p></p>[[File:pingCapture.png|400px]]
+
+<p>==== Conectar la BeagleBone Black mediante SSH====</p>
+
+<p>Una vez confirmada la conexión de la BeagleBone usando el comando $ping podemos intentar conectarnos usando el comando en la consola :</p>
+
+<pre><code>$ssh -X root@192.168.7.2
+</code></pre>
+
+<p>donde el numero 192.168.7.2 es la dirección por default de todas las BeagleBone Black, y el fragmento del comando "-X" realiza una conexión entre el entorno gráfico de Ubuntu y el sistema operativo de la BeagleBone y así poder acceder a las aplicaciones con entorno gráfico como Gedit y Firefox.</p>
+
+<p></p>[[File:sshCapture.png|400px]]
+
+<p>y para salir de la BeagleBone y retomar el control sobre la consola podemos utilizar el siguiente comando:</p>
+
+<p>$exit</p>
+
+<p></p>[[File:exitCapture.png|400px]]
+
+<p>==== Entorno de Programación ====</p>
+
+<p>La tarjeta de desarrollo viene con un servidor web basado en html que contiene un extenso tutorial , librerías para BoneScript (el lenguaje de programación de la Beagle, aunque también  se puede programar en C, java, C++, etc.Para acceder a estos manuales y guias es necesario abrir en firefox/Chrome la siguente dirección :</p>
+
+<pre><code> http://192.168.7.2
+</code></pre>
+
+<p></p>[[File:beaglehtml.png|400px]]
+
+<p>En este portal existen varios tutoriales y ejemplos para comenzar a utilizar la BeagleBone Black usando BoneScript.Para comenzar a probar la BeagleBone vamos a analizar el primer ejemplo que encontramos en el portal:</p>
+
+<p></p>[[File:ledstest.png|400px]]
+
+<p>En este ejemplo se encienden los LEDS USR que habíamos caracterizado anteriormente. En el codigo se utiliza gracias a BoneScript ya existen múltiples funciones para utilizar los periféricos (Hardware)
+como por ejemplo la función pinMode() que define si el pin es de salida o de entrada.
+digitalWrite() que permite escribir una señal lógica ( 1 lógico = 3.3v) y usando la funcion se setTimeout se puede mantener el estado de los leds antes de que el código termine y se apaguen los leds.
+Para probar este ejemplo solo basta seleccionar "run" .</p>
+
+<p></p>[[File:LEDStest.png|400px]]
+
+<p>La BeagleBone viene con un entorno de desarrollo para programar en BoneScript,C,java,etc. Llamado Cloud9 al cual se puede acceder mediante Firefox ingresando la siguente url:</p>
+
+<pre><code> http://192.168.7.2:3000/
+</code></pre>
+
+<p></p>[[File:cloud9.png|400px]]
+        </section>
+
+        <footer>
+          ADSD VestibulumSensorem Mark - I is maintained by <a href="https://github.com/wallamejorge">wallamejorge</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
