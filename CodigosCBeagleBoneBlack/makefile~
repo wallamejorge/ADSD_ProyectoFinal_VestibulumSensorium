@@ -6,4 +6,6 @@ BBBcSet: SetPin.c
 	arm-angstrom-linux-gnueabi-gcc -o  SetPin.app SetPin.c
 BBBcClear: ClearPin.c
 	arm-angstrom-linux-gnueabi-gcc -o  ClearPin.app ClearPin.c
+BBBcMain: main.c
+	arm-angstrom-linux-gnueabi-gcc -o  main.app main.c
 

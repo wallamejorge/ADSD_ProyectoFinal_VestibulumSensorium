@@ -4,13 +4,14 @@
 #include <time.h>
 #include <math.h>
 
+int PIN_VALUE(int n);
 void intToChar(int j,char indice[]);
 void PIN_ON(int n);
 void PIN_OFF(int n);
 void PIN_BLINKING(int pin);
-int PIN_VALUE(int n);
 void HTML_LatLongWrite(char lat[] , char lon[]);
 void updateGoogleMaps(void);
+double Read_latGPS(void);
 
 void PIN_ON(int n)
 {
@@ -117,6 +118,20 @@ void updateGoogleMaps(void){
 char command[100]="firefox main_html.html &";
 FILE *TestConsole= popen(command,"r");
 fclose(TestConsole);
+}
+
+double Read_latGPS(void){
+FILE *in;
+in = fopen("demo.txt","r");
+int i=0;
+char caracteres[1000];
+while (feof(in) == 0){
+    fgets(caracteres, i, in);
+     //printf( "Linea leida es %s \n", caracteres );
+	i=i+1;
+  }
+fclose(in);
+return 0.0;
 }
 
 void intToChar(int j,char indice[]){

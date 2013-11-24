@@ -10,6 +10,7 @@ int main(void)
   printf("..............................\n");
   char lat[200] = "35.789506";
   char lon[200] = "137.6917";
+  double r=Read_latGPS();
   HTML_LatLongWrite(lat,lon);
   updateGoogleMaps();
   return 0;
