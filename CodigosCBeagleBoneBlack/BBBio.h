@@ -12,6 +12,9 @@ void PIN_BLINKING(int pin);
 void HTML_LatLongWrite(char lat[] , char lon[]);
 void updateGoogleMaps(void);
 double Read_latGPS(void);
+int readADC(int port);
+void escribirxy_txt(float x,float y);
+void plot(void);
 
 void PIN_ON(int n)
 {
@@ -71,24 +74,45 @@ int PIN_VALUE(int n)
    return valuePin;
 }
 
-int ANALOG_READ(int n)
+int readADC(int port)
 {
-  FILE *in;
-  char command[100]="/sys/bus/iio/devices/iio:device0/in_voltage";
-  char no_pin[2]="";
-  int valuePin=0;
-  int salida=10;
-  char comman_end[5]="_raw";
-  int j=n;
-  intToChar(j,no_pin);
-  strcat(command,no_pin);
-  strcat(command,comman_end);
-  char caracteres[10];
-  in = fopen(command,"r");
-  fgets(caracteres,10,in);
-  salida= atoi (caracteres);
-   fclose(in);
-  return salida;
+    FILE *puerto;
+    if(port==0){
+     puerto = fopen("/sys/devices/ocp.2/helper.14/AIN0","r");
+    }
+    if(port==1){
+     puerto = fopen("/sys/devices/ocp.2/helper.14/AIN1","r");
+    }
+    if(port==2){
+     puerto = fopen("/sys/devices/ocp.2/helper.14/AIN2","r");
+    }
+    if(port==3){
+     puerto = fopen("/sys/devices/ocp.2/helper.14/AIN3","r");
+    }
+    char valor[5];
+    int totalADC,potencia,digitos;
+    fread(&valor,5,5,puerto);
+    int j;
+    digitos = 3;
+    for(j = 0 ; j < 4 ; j++)
+    {
+        if(valor[j] == 10)
+        {
+            digitos = j - 1;
+        }
+ 
+    }
+    totalADC = 0;
+    potencia = 1;
+    for(j = digitos ; j >= 0 ; j--)
+    {
+        totalADC += (valor[j] - 48)*potencia;
+        potencia*=10;
+    }
+ 
+    fclose(puerto);
+ 
+    return totalADC;
 }
 
 void HTML_LatLongWrite(char lat[] , char lon[])
@@ -133,6 +157,33 @@ while (feof(in) == 0){
 fclose(in);
 return 0.0;
 }
+
+void escribirxy_txt(float x,float y){
+  FILE *fileout;
+  int i=0;
+  char filename[26]="Data";
+  char format[5]=".txt";
+
+  strcat(filename,format);
+  
+  fileout=fopen(filename,"a");
+  fprintf(fileout,"%f %f\n",x,y);
+  fclose(fileout);
+
+}
+
+void plot(void){
+FILE *gplot = popen("gnuplot -persist","w");
+  fprintf(gplot, "set term png\n");
+  fprintf(gplot, "set output 'Plot_Data.png'\n");
+  fprintf(gplot, "set multiplot layout 1,2 rowsfirst \n");
+  
+  fprintf(gplot, "set title 'Gas(t)'\n");
+  fprintf(gplot, "unset key\n");
+  fprintf(gplot, "plot 'Data.txt' using 1:2\n");
+  fclose(gplot);
+}
+
 
 void intToChar(int j,char indice[]){
 if(j==0){strcat(indice,"0");}
