@@ -15,6 +15,8 @@ double Read_latGPS(void);
 int readADC(int port);
 void escribirxy_txt(float x,float y);
 void plot(void);
+void initAnalogPort();
+void initDigitalPort(int  port);
 
 void PIN_ON(int n)
 {
@@ -172,6 +174,24 @@ void escribirxy_txt(float x,float y){
 
 }
 
+void initAnalogPort(){
+char command[100]="echo cape-bone-iio > /sys/devices/bone_capemgr.8/slots";
+FILE *TestConsole= popen(command,"w");
+fclose(TestConsole);
+}
+void initDigitalPort(int port){
+char command[100]="echo ";
+  char no_pin[2]="";
+  char comman_end[100]="> /sys/class/gpio/export";
+  int j=port;
+  intToChar(j,no_pin);
+  strcat(command,no_pin);
+  strcat(command,comman_end);
+  printf("|||..El comando es %s..|||\n",command);
+FILE *TestConsole= popen(command,"w");
+fclose(TestConsole);
+
+}
 void plot(void){
 FILE *gplot = popen("gnuplot -persist","w");
   fprintf(gplot, "set term png\n");

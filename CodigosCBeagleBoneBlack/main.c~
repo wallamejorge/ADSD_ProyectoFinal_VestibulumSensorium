@@ -14,17 +14,24 @@ int main(void)
   double i=0.0;
   int port=0;
   int Stop=0;
+  printf("...Se inicializaron las variables...\n");
+  initAnalogPort();
+  printf("...Se inicializo los puertos analogos\n");
+  initDigitalPort(44);
+  printf("...Se inicializo el puerto digital 44:P8-12..\n");
   Stop=PIN_VALUE(44);
+  printf("...Arrancamos el Ciclo While de lectura analoga....\n");
   while(Stop==0){
   analog=readADC(port);
   escribirxy_txt(i,(analog));
+  printf("El valor de Gas de CO2 es %f ppm en el ambiente !\n",analog);
   Stop=PIN_VALUE(44);
   i=i+1;
   sleep(1);
   }
+  printf("...Se cerro el ciclo...graficando...\n");
   plot();
-  //HTML_LatLongWrite(lat,lon);
-  //updateGoogleMaps();
+  printf("...Termino la grafica....Chao\n");
   return 0;
 }
 
