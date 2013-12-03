@@ -136,7 +136,7 @@ strcat(cadena1,cadena5);
 while (feof(in) == 0){
     fgets(caracteres,100,in);
     i=i+1;
-	if(i==11){fputs( cadena1, in );break;}
+	if(i==105){fputs( cadena1, in );break;}
   }
 }
 
@@ -182,7 +182,7 @@ fclose(TestConsole);
 void initDigitalPort(int port){
 char command[100]="echo ";
   char no_pin[2]="";
-  char comman_end[100]="> /sys/class/gpio/export";
+  char comman_end[100]=" > /sys/class/gpio/export";
   int j=port;
   intToChar(j,no_pin);
   strcat(command,no_pin);
@@ -196,11 +196,12 @@ void plot(void){
 FILE *gplot = popen("gnuplot -persist","w");
   fprintf(gplot, "set term png\n");
   fprintf(gplot, "set output 'Plot_Data.png'\n");
-  fprintf(gplot, "set multiplot layout 1,2 rowsfirst \n");
+  fprintf(gplot, "set xlabel 'Segundos\n");
+  fprintf(gplot, "set ylabel 'Concentracion de CO2 [ppm]'\n");
   
   fprintf(gplot, "set title 'Gas(t)'\n");
   fprintf(gplot, "unset key\n");
-  fprintf(gplot, "plot 'Data.txt' using 1:2\n");
+  fprintf(gplot, "plot 'Data.txt'\n");
   fclose(gplot);
 }
 

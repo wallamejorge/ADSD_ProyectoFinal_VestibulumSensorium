@@ -8,8 +8,8 @@ int main(void)
 {
   printf("BEAGLEBONE BLACK.....is alive!\n");
   printf("..............................\n");
-  char lat[200] = "35.789506";
-  char lon[200] = "137.6917";
+  char lat[200] = "10.000111";
+  char lon[200] = "10.000400";
   double analog=0.0;
   double i=0.0;
   int port=0;
@@ -31,7 +31,13 @@ int main(void)
   }
   printf("...Se cerro el ciclo...graficando...\n");
   plot();
-  printf("...Termino la grafica....Chao\n");
+  printf("...Termino la grafica....\n");
+  printf("...Comenzando codigos de GPS...\n");
+  Read_latGPS();
+  //HTML_LatLongWrite(lat,lon);
+  //printf("...Generando archivo de HTML con los Mapas....\n");
+  //updateGoogleMaps();
+  // printf("...Abriendo Firefox....\n");
   return 0;
 }
 

@@ -4,6 +4,4 @@ BBBcp: BlinkingLed.c BBBio.h makefile
 BBBcMain: main.c
 	arm-angstrom-linux-gnueabi-gcc -o  main.app main.c
 BBBrm:
-	rm *
 	rm -r *
-

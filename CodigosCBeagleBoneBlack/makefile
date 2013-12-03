@@ -5,3 +5,6 @@ BBBcMain: main.c
 	arm-angstrom-linux-gnueabi-gcc -o  main.app main.c
 BBBrm:
 	rm -r *
+BBBrun:
+	rm Plot_Data.png Data.txt 
+	./main.app
