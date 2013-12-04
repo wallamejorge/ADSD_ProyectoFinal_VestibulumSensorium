@@ -9,9 +9,9 @@ void intToChar(int j,char indice[]);
 void PIN_ON(int n);
 void PIN_OFF(int n);
 void PIN_BLINKING(int pin);
-void HTML_LatLongWrite(char lat[] , char lon[]);
+void HTML_LatLongWrite(double lat , double lon);
 void updateGoogleMaps(void);
-void Read_latGPS(void);
+double Read_latGPS(int lat_out);
 int readADC(int port);
 void escribirxy_txt(float x,float y);
 void plot(void);
@@ -117,8 +117,17 @@ int readADC(int port)
     return totalADC;
 }
 
-void HTML_LatLongWrite(char lat[] , char lon[])
+void HTML_LatLongWrite(double lat , double lon)
 {
+
+char str_latitud[500];
+sprintf(str_latitud,"%f",lat);
+char str_longitud[500];
+sprintf(str_longitud,"%f",lon);
+
+printf("la latitud (string) es: %s  N \n",str_latitud);
+ printf("la longitud (string) es: %s  W \n",str_longitud);
+
 FILE *in;
 in = fopen("main_html.html","r+");
 int fin=feof(in);
@@ -128,15 +137,15 @@ char cadena1[200] = "center: new google.maps.LatLng( ";
 char cadena3[200] = ",";
 char cadena5[200] = "), \n";
 
-strcat(cadena1,lat);
+strcat(cadena1,str_latitud);
 strcat(cadena1,cadena3);
-strcat(cadena1,lon);
+strcat(cadena1,str_longitud);
 strcat(cadena1,cadena5);
 
 while (feof(in) == 0){
     fgets(caracteres,100,in);
     i=i+1;
-	if(i==105){fputs( cadena1, in );break;}
+if(i==105){fputs( cadena1, in );break;}
   }
 }
 
@@ -146,12 +155,16 @@ FILE *TestConsole= popen(command,"r");
 fclose(TestConsole);
 }
 
-void Read_latGPS(void){
+/////////// leer GPS //////////////////////////
 
+double Read_latGPS(int lat_out){
+//escribe en el primer archivo
 char command[500]="head -50 /dev/ttyO2 > ~/Desktop/jorgedatosgpsnuevoparquevean.txt";
 FILE *TestConsole= popen(command,"w");
 fclose(TestConsole);
 printf("...Se hiso el cat..\n");
+
+// se le hace el grep al archivo generando otro con sóo GPGLL
 char command1[500]=" grep '$GPGLL' ~/Desktop/jorgedatosgpsnuevoparquevean.txt > ~/Desktop/jorgelatlong.txt";
 FILE *TestConsole1= popen(command1,"w");
 fclose(TestConsole);
@@ -171,17 +184,19 @@ int length=0;
 
   if (s != NULL){
     printf ("......found a 'V' at .......%s\n", s);
-	valido=0;
-}else {printf(".....not found");
-	valido=1;}
+valido=0;
+}else {printf(".....not found 'V' el dato es válido.........\n");
+valido=1;}
 
- c = fgetc(in);
- c = fgetc(in);
- c = fgetc(in);
- c = fgetc(in);
- c = fgetc(in);
- c = fgetc(in);
- c = fgetc(in);
+// $GPGLL,0436.1094,N,07403.9133,W,200304.000,A,A*4
+
+ c = fgetc(in); //$
+ c = fgetc(in); //G
+ c = fgetc(in); //P
+ c = fgetc(in); //G
+ c = fgetc(in); //L
+ c = fgetc(in); //L
+ c = fgetc(in); // comma
 
 // North//
 int g1N,g2N,m1N,m2N,m3N,m4N,m5N,m6N;
@@ -189,46 +204,78 @@ int g1N,g2N,m1N,m2N,m3N,m4N,m5N,m6N;
 int gN=0;
 int mN=0;
 int norte=0;
-
+//degrees 
  g1N = fgetc(in);  
  g2N = fgetc(in); 
+//minutes
  m1N = fgetc(in); 
  m2N = fgetc(in); 
- c = fgetc(in); 
+ c = fgetc(in); // punto
  m3N = fgetc(in); 
  m4N = fgetc(in); 
  m5N = fgetc(in); 
  m6N = fgetc(in);
- c = fgetc(in);
- norte= fgetc(in);
- c = fgetc(in);
+ c = fgetc(in); // comma
+// north or south
+ norte= fgetc(in); // NORTE
+ c = fgetc(in); // comma
 
 // West//
-int g1W,g2W,m1W,m2W,m3W,m4W,m5W,m6W,m7W;
+int g1W,g2W,g3W,m1W,m2W,m3W,m4W,m5W,m6W;
 
 int gW=0;
 int mW=0;
 int west=0;
 
+//degrees
  g1W = fgetc(in);  
  g2W = fgetc(in); 
+ g3W = fgetc(in); 
+//minutes
  m1W = fgetc(in); 
  m2W = fgetc(in); 
- m3W = fgetc(in);
  c = fgetc(in);  
+ m3W = fgetc(in); 
  m4W = fgetc(in); 
- m5W = fgetc(in); 
- m6W = fgetc(in);
- m7W = fgetc(in); 
+ m5W = fgetc(in);
+ m6W = fgetc(in); 
+
  c = fgetc(in);
  west= fgetc(in);
  c = fgetc(in); 
- printf("El dato norte es : %c %c %c %c . %c %c %c %c N",g1N,g2N,m1N,m2N,m3N,m4N,m5N,m6N);
 
+ printf("El dato norte es : %c %c %c %c . %c %c %c %c \n",g1N,g2N,m1N,m2N,m3N,m4N,m5N,m6N);
+ printf("El dato oeste es : %c %c %c %c %c . %c %c %c %c \n",g1W,g2W,g3W,m1W,m2W,m3W,m4W,m5W,m6W);
+
+//double latitud=(10*g1N+g2N)+((10*m1N+m2N)+(0.1*m3N+0.01*m4N+0.001*m5N+0.0001*m6N))/60;
+//double longitud=(100*g1W+10*g2W+g3W)+((10*m1W+m2W)+(0.1*m3W+0.01*m4W+0.001*m5W+0.0001*m6W))/60;
+
+/*double latitud=(10*3+7)+((10*3+8)+(0.1*5+0.01*8+0.001*0+0.0001*7))/60;
+double longitud=(100*0+10*5+0)+((10*1+6)+(0.1*1+0.01*2+0.001*2+0.0001*9))/60;*/
+
+double latitud=28.535219;
+double longitud=(-1)*81.382456;
+
+//double latitud=0;
+//double longitud=0;
+
+ printf("la latitud es: %f  N \n",latitud);
+ printf("la longitud es: %f  W \n",longitud);
+
+char str_latitud[500];
+sprintf(str_latitud,"%f",latitud);
+char str_longitud[500];
+sprintf(str_longitud,"%f",longitud);
+
+printf("la latitud (string) es: %s  N \n",str_latitud);
+ printf("la longitud (string) es: %s  W \n",str_longitud);
+
+if(lat_out==1){return latitud;}
+else{return longitud;}
 
 }
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void escribirxy_txt(float x,float y){
   FILE *fileout;

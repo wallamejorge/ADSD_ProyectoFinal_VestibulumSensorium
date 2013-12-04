@@ -11,7 +11,7 @@ void PIN_OFF(int n);
 void PIN_BLINKING(int pin);
 void HTML_LatLongWrite(char lat[] , char lon[]);
 void updateGoogleMaps(void);
-double Read_latGPS(void);
+void Read_latGPS(void);
 int readADC(int port);
 void escribirxy_txt(float x,float y);
 void plot(void);
@@ -146,19 +146,89 @@ FILE *TestConsole= popen(command,"r");
 fclose(TestConsole);
 }
 
-double Read_latGPS(void){
+void Read_latGPS(void){
+
+char command[500]="head -50 /dev/ttyO2 > ~/Desktop/jorgedatosgpsnuevoparquevean.txt";
+FILE *TestConsole= popen(command,"w");
+fclose(TestConsole);
+printf("...Se hiso el cat..\n");
+char command1[500]=" grep '$GPGLL' ~/Desktop/jorgedatosgpsnuevoparquevean.txt > ~/Desktop/jorgelatlong.txt";
+FILE *TestConsole1= popen(command1,"w");
+fclose(TestConsole);
+printf("...Se hiZo el grep...\n");
+
 FILE *in;
-in = fopen("demo.txt","r");
-int i=0;
-char caracteres[1000];
-while (feof(in) == 0){
-    fgets(caracteres, i, in);
-     //printf( "Linea leida es %s \n", caracteres );
-	i=i+1;
-  }
-fclose(in);
-return 0.0;
+in = fopen("jorgelatlong.txt","r+");
+char latlong[200];
+int length=0;
+    fgets(latlong,100,in);
+     printf("... ya se guardó la primera línea...\n");
+     
+ char *s;
+ int valido=0;
+ int c=0;
+  s = strchr (latlong, 'V');
+
+  if (s != NULL){
+    printf ("......found a 'V' at .......%s\n", s);
+	valido=0;
+}else {printf(".....not found");
+	valido=1;}
+
+ c = fgetc(in);
+ c = fgetc(in);
+ c = fgetc(in);
+ c = fgetc(in);
+ c = fgetc(in);
+ c = fgetc(in);
+ c = fgetc(in);
+
+// North//
+int g1N,g2N,m1N,m2N,m3N,m4N,m5N,m6N;
+
+int gN=0;
+int mN=0;
+int norte=0;
+
+ g1N = fgetc(in);  
+ g2N = fgetc(in); 
+ m1N = fgetc(in); 
+ m2N = fgetc(in); 
+ c = fgetc(in); 
+ m3N = fgetc(in); 
+ m4N = fgetc(in); 
+ m5N = fgetc(in); 
+ m6N = fgetc(in);
+ c = fgetc(in);
+ norte= fgetc(in);
+ c = fgetc(in);
+
+// West//
+int g1W,g2W,m1W,m2W,m3W,m4W,m5W,m6W,m7W;
+
+int gW=0;
+int mW=0;
+int west=0;
+
+ g1W = fgetc(in);  
+ g2W = fgetc(in); 
+ m1W = fgetc(in); 
+ m2W = fgetc(in); 
+ m3W = fgetc(in);
+ c = fgetc(in);  
+ m4W = fgetc(in); 
+ m5W = fgetc(in); 
+ m6W = fgetc(in);
+ m7W = fgetc(in); 
+ c = fgetc(in);
+ west= fgetc(in);
+ c = fgetc(in); 
+ printf("El dato norte es : %c %c %c %c . %c %c %c %c N",g1N,g2N,m1N,m2N,m3N,m4N,m5N,m6N);
+
+
 }
+
+
 
 void escribirxy_txt(float x,float y){
   FILE *fileout;
@@ -179,6 +249,9 @@ char command[100]="echo cape-bone-iio > /sys/devices/bone_capemgr.8/slots";
 FILE *TestConsole= popen(command,"w");
 fclose(TestConsole);
 }
+
+
+
 void initDigitalPort(int port){
 char command[100]="echo ";
   char no_pin[2]="";

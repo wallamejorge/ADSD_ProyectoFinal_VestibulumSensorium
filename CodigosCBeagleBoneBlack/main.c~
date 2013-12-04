@@ -32,10 +32,12 @@ int main(void)
   printf("...Se cerro el ciclo...graficando...\n");
   plot();
   printf("...Termino la grafica....\n");
-  HTML_LatLongWrite(lat,lon);
-  printf("...Generando archivo de HTML con los Mapas....\n");
-  updateGoogleMaps();
-   printf("...Abriendo Firefox....\n");
+  printf("...Comenzando codigos de GPS...\n");
+  Read_latGPS();
+  //HTML_LatLongWrite(lat,lon);
+  //printf("...Generando archivo de HTML con los Mapas....\n");
+  //updateGoogleMaps();
+  // printf("...Abriendo Firefox....\n");
   return 0;
 }
 
