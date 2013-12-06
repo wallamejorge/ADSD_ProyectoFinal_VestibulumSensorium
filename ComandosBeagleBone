@@ -93,3 +93,8 @@ Se requiere habilitar estos puertos para la utilización del GPS
 >>>>>>> 6e5cbfa3ea3f32c27acee3ffb9698f50657ff670
 
 more /dev/ttyO2 > testjorgegps &
+
+
+10. Copiar carpetas de la bealge a la PC (ojo toca desde la PC)
+
+ scp -r root@192.168.7.2:~/Desktop/ ./Documentos/ProyectoCattleSensor/FromBeagleBone/
