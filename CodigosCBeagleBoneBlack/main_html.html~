@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<META HTTP-EQUIV="refresh" CONTENT="10">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Mapa del GPS en HTML</title>
 <body>
@@ -83,16 +84,11 @@ text-decoration:underline;
 <table border="1">
   <tbody>
 <tr>
-
 <td>
-
-
 <div align="right">
-<img src="Plot_data.png" width=550px; height= 450px>
+<img src="Plot_Data.png" width=550px; height= 450px>
 </div>
-
 </td>
-
 <td>
 
 <script type="text/javascript"
@@ -109,12 +105,8 @@ ypeId: google.maps.MapTypeId.HYBRID
 var map = new google.maps.Map(document.getElementById("map"), myOptions);
 </script>
 </body>
-
 </td>
-
-  </tr>
+</tr>
 </tbody></table>
-
-
 
 </html>

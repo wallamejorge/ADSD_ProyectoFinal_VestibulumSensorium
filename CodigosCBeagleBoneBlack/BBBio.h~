@@ -1,22 +1,69 @@
+/*
+Proyecto DistribuitedCattleSensor Vestibulum Sensorem Pulchra-0
+
+Nombres:Jorge Luis Mayorga-Monica Tuta Fajardo-Juan Felipe Martinez Ramos
+
+Descripcion:
+ La liberia BBBio.h es una libreria desarrollada por los autores del proyecto para manejar las funciones de hardware de la BeagleBone Black.
+*/
+
+//-----------------------------------------------------//
+//--------------Declaracion de Librerias---------------//
+//-----------------------------------------------------//
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <math.h>
+//-----------------------------------------------------//
+//-----------------------------------------------------//
+//-----------------------------------------------------//
 
+
+
+
+//-----------------------------------------------------//
+//--------------Declaracion de Funciones---------------//
+//-----------------------------------------------------//
+
+
+//1------------Manejo de Puertos---------------//
 int PIN_VALUE(int n);
-void intToChar(int j,char indice[]);
+int readADC(int port);
 void PIN_ON(int n);
 void PIN_OFF(int n);
 void PIN_BLINKING(int pin);
-void HTML_LatLongWrite(char lat[] , char lon[]);
-void updateGoogleMaps(void);
-void Read_latGPS(void);
-int readADC(int port);
-void escribirxy_txt(float x,float y);
-void plot(void);
 void initAnalogPort();
 void initDigitalPort(int  port);
+//---------------------------------------------//
+
+//2----------Funciones de Software-------------//
+void HTML_LatLongWrite(double lat , double lon);
+void updateGoogleMaps(void);
+double Read_latGPS(int lat_out);
+void escribirxy_txt(float x,float y);
+void plot(void);
+void plot_number(int j);
+void escribirxy_txt_number(float x,float y,int numbername);
+//---------------------------------------------//
+
+//3----------Funciones de Utileria--------------//
+void intToChar(int j,char indice[]);
+//---------------------------------------------//
+
+//-----------------------------------------------------//
+//-----------------------------------------------------//
+//-----------------------------------------------------//
+
+
+
+
+
+//-----------------------------------------------------//
+//--------------Funciones de la libreria---------------//
+//-----------------------------------------------------//
+
+//1------------Manejo de Puertos---------------//
 
 void PIN_ON(int n)
 {
@@ -30,8 +77,6 @@ void PIN_ON(int n)
 FILE *TestConsole= popen(command,"w");
 fclose(TestConsole);
 }
-
-
 
 void PIN_OFF(int n)
 {
@@ -117,8 +162,20 @@ int readADC(int port)
     return totalADC;
 }
 
-void HTML_LatLongWrite(char lat[] , char lon[])
+
+//-----------------------------------------------------//
+
+void HTML_LatLongWrite(double lat , double lon)
 {
+
+char str_latitud[500];
+sprintf(str_latitud,"%f",lat);
+char str_longitud[500];
+sprintf(str_longitud,"%f",lon);
+
+printf("la latitud (string) es: %s  N \n",str_latitud);
+ printf("la longitud (string) es: %s  W \n",str_longitud);
+
 FILE *in;
 in = fopen("main_html.html","r+");
 int fin=feof(in);
@@ -128,15 +185,15 @@ char cadena1[200] = "center: new google.maps.LatLng( ";
 char cadena3[200] = ",";
 char cadena5[200] = "), \n";
 
-strcat(cadena1,lat);
+strcat(cadena1,str_latitud);
 strcat(cadena1,cadena3);
-strcat(cadena1,lon);
+strcat(cadena1,str_longitud);
 strcat(cadena1,cadena5);
 
 while (feof(in) == 0){
     fgets(caracteres,100,in);
     i=i+1;
-	if(i==105){fputs( cadena1, in );break;}
+if(i==101){fputs( cadena1, in );break;}
   }
 }
 
@@ -146,8 +203,7 @@ FILE *TestConsole= popen(command,"r");
 fclose(TestConsole);
 }
 
-void Read_latGPS(void){
-
+double Read_latGPS(int lat_out){
 char command[500]="head -50 /dev/ttyO2 > ~/Desktop/jorgedatosgpsnuevoparquevean.txt";
 FILE *TestConsole= popen(command,"w");
 fclose(TestConsole);
@@ -171,17 +227,19 @@ int length=0;
 
   if (s != NULL){
     printf ("......found a 'V' at .......%s\n", s);
-	valido=0;
-}else {printf(".....not found");
-	valido=1;}
+valido=0;
+}else {printf(".....not found 'V' el dato es válido.........\n");
+valido=1;}
 
- c = fgetc(in);
- c = fgetc(in);
- c = fgetc(in);
- c = fgetc(in);
- c = fgetc(in);
- c = fgetc(in);
- c = fgetc(in);
+// $GPGLL,0436.1094,N,07403.9133,W,200304.000,A,A*4
+
+ c = fgetc(in); //$
+ c = fgetc(in); //G
+ c = fgetc(in); //P
+ c = fgetc(in); //G
+ c = fgetc(in); //L
+ c = fgetc(in); //L
+ c = fgetc(in); // comma
 
 // North//
 int g1N,g2N,m1N,m2N,m3N,m4N,m5N,m6N;
@@ -189,46 +247,67 @@ int g1N,g2N,m1N,m2N,m3N,m4N,m5N,m6N;
 int gN=0;
 int mN=0;
 int norte=0;
-
+//degrees 
  g1N = fgetc(in);  
  g2N = fgetc(in); 
+//minutes
  m1N = fgetc(in); 
  m2N = fgetc(in); 
- c = fgetc(in); 
+ c = fgetc(in); // punto
  m3N = fgetc(in); 
  m4N = fgetc(in); 
  m5N = fgetc(in); 
  m6N = fgetc(in);
- c = fgetc(in);
- norte= fgetc(in);
- c = fgetc(in);
+ c = fgetc(in); // comma
+// north or south
+ norte= fgetc(in); // NORTE
+ c = fgetc(in); // comma
 
 // West//
-int g1W,g2W,m1W,m2W,m3W,m4W,m5W,m6W,m7W;
+int g1W,g2W,g3W,m1W,m2W,m3W,m4W,m5W,m6W;
 
 int gW=0;
 int mW=0;
 int west=0;
 
+//degrees
  g1W = fgetc(in);  
  g2W = fgetc(in); 
+ g3W = fgetc(in); 
+//minutes
  m1W = fgetc(in); 
  m2W = fgetc(in); 
- m3W = fgetc(in);
  c = fgetc(in);  
+ m3W = fgetc(in); 
  m4W = fgetc(in); 
- m5W = fgetc(in); 
- m6W = fgetc(in);
- m7W = fgetc(in); 
+ m5W = fgetc(in);
+ m6W = fgetc(in); 
+
  c = fgetc(in);
  west= fgetc(in);
  c = fgetc(in); 
- printf("El dato norte es : %c %c %c %c . %c %c %c %c N",g1N,g2N,m1N,m2N,m3N,m4N,m5N,m6N);
 
+ printf("El dato norte es : %c %c %c %c . %c %c %c %c \n",g1N,g2N,m1N,m2N,m3N,m4N,m5N,m6N);
+ printf("El dato oeste es : %c %c %c %c %c . %c %c %c %c \n",g1W,g2W,g3W,m1W,m2W,m3W,m4W,m5W,m6W);
+
+double latitud=28.535219;
+double longitud=(-1)*81.382456;
+
+ printf("la latitud es: %f  N \n",latitud);
+ printf("la longitud es: %f  W \n",longitud);
+
+char str_latitud[500];
+sprintf(str_latitud,"%f",latitud);
+char str_longitud[500];
+sprintf(str_longitud,"%f",longitud);
+
+printf("la latitud (string) es: %s  N \n",str_latitud);
+ printf("la longitud (string) es: %s  W \n",str_longitud);
+
+if(lat_out==1){return latitud;}
+else{return longitud;}
 
 }
-
-
 
 void escribirxy_txt(float x,float y){
   FILE *fileout;
@@ -243,6 +322,21 @@ void escribirxy_txt(float x,float y){
   fclose(fileout);
 
 }
+
+void escribirxy_txt_number(float x,float y,int numbername){
+  FILE *fileout;
+  int i=0;
+  char filename[26]="Data";
+  char indice[3]="";
+  char format[5]=".txt";
+  intToChar(numbername,indice);
+  strcat(filename,indice);
+  strcat(filename,format);
+  fileout=fopen(filename,"a");
+  fprintf(fileout,"%f %f\n",x,y);
+  fclose(fileout);
+}
+
 
 void initAnalogPort(){
 char command[100]="echo cape-bone-iio > /sys/devices/bone_capemgr.8/slots";
@@ -275,6 +369,39 @@ FILE *gplot = popen("gnuplot -persist","w");
   fprintf(gplot, "set title 'Gas(t)'\n");
   fprintf(gplot, "unset key\n");
   fprintf(gplot, "plot 'Data.txt'\n");
+  fclose(gplot);
+}
+
+void plot_number(int j){
+ char filename[50]="";
+ char format[17]=".txt'\n";
+ char indice[2]="";
+ intToChar(j,indice);
+
+ strcat(filename,"plot 'Data");
+ strcat(filename,indice);
+ strcat(filename,format);
+
+ char plotname[50]="";
+ char formatplot[17]=".png'\n";
+ char indiceplot[2]="";
+ intToChar(j,indiceplot);
+
+ strcat(plotname,"set output 'Plot_Data");
+ strcat(plotname,indiceplot);
+ strcat(plotname,formatplot);
+
+ 
+
+FILE *gplot = popen("gnuplot -persist","w");
+  fprintf(gplot, "set term png\n");
+  fprintf(gplot, plotname);
+  fprintf(gplot, "set xlabel 'Segundos\n");
+  fprintf(gplot, "set ylabel 'Concentracion de CO2 [ppm]'\n");
+  
+  fprintf(gplot, "set title 'Gas(t)'\n");
+  fprintf(gplot, "unset key\n");
+  fprintf(gplot,filename);
   fclose(gplot);
 }
 
