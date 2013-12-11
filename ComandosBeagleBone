@@ -98,3 +98,10 @@ more /dev/ttyO2 > testjorgegps &
 10. Copiar carpetas de la bealge a la PC (ojo toca desde la PC)
 
  scp -r root@192.168.7.2:~/Desktop/ ./Documentos/ProyectoCattleSensor/FromBeagleBone/
+ 
+ 
+11. No tener que meter contraseña para scp y ssh
+http://galileo667blog.wordpress.com/2012/11/13/conexion-ssh-y-scp-sin-necesidad-de-introducir-contrasena/
+
+12. Crear un server en python 
+http://nideaderedes.urlansoft.com/2008/09/11/python-conectar-a-un-servidor-ssh/
