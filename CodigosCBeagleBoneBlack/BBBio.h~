@@ -310,6 +310,10 @@ else{return longitud;}
 }
 
 void escribirxy_txt(float x,float y){
+  time_t tiempo = time(0);
+  struct tm *tlocal = localtime(&tiempo);
+  char output[128];
+  strftime(output,128,"%d/%m/%y %H:%M:%S",tlocal);
   FILE *fileout;
   int i=0;
   char filename[26]="Data";
@@ -318,12 +322,16 @@ void escribirxy_txt(float x,float y){
   strcat(filename,format);
   
   fileout=fopen(filename,"a");
-  fprintf(fileout,"%f %f\n",x,y);
+  fprintf(fileout,"%f %f %s \n",x,y,output);
   fclose(fileout);
 
 }
 
 void escribirxy_txt_number(float x,float y,int numbername){
+  time_t tiempo = time(0);
+  struct tm *tlocal = localtime(&tiempo);
+  char output[128];
+  strftime(output,128,"%d/%m/%y %H:%M:%S",tlocal);
   FILE *fileout;
   int i=0;
   char filename[26]="Data";
@@ -333,7 +341,7 @@ void escribirxy_txt_number(float x,float y,int numbername){
   strcat(filename,indice);
   strcat(filename,format);
   fileout=fopen(filename,"a");
-  fprintf(fileout,"%f %f\n",x,y);
+  fprintf(fileout,"%f %f %s \n",x,y,output);
   fclose(fileout);
 }
 
@@ -354,7 +362,6 @@ char command[100]="echo ";
   intToChar(j,no_pin);
   strcat(command,no_pin);
   strcat(command,comman_end);
-  printf("|||..El comando es %s..|||\n",command);
 FILE *TestConsole= popen(command,"w");
 fclose(TestConsole);
 
@@ -364,17 +371,17 @@ FILE *gplot = popen("gnuplot -persist","w");
   fprintf(gplot, "set term png\n");
   fprintf(gplot, "set output 'Plot_Data.png'\n");
   fprintf(gplot, "set xlabel 'Segundos\n");
-  fprintf(gplot, "set ylabel 'Concentracion de CO2 [ppm]'\n");
+  fprintf(gplot, "set ylabel 'Concentracion de Metano [ppm]'\n");
   
   fprintf(gplot, "set title 'Gas(t)'\n");
   fprintf(gplot, "unset key\n");
-  fprintf(gplot, "plot 'Data.txt'\n");
+  fprintf(gplot, "plot 'Data.txt' using 1:2 \n");
   fclose(gplot);
 }
 
 void plot_number(int j){
  char filename[50]="";
- char format[17]=".txt'\n";
+ char format[17]=".txt using 1:2'\n";
  char indice[2]="";
  intToChar(j,indice);
 
@@ -383,11 +390,11 @@ void plot_number(int j){
  strcat(filename,format);
 
  char plotname[50]="";
- char formatplot[17]=".png'\n";
+ char formatplot[17]=".png '\n";
  char indiceplot[2]="";
  intToChar(j,indiceplot);
 
- strcat(plotname,"set output 'Plot_Data");
+ strcat(plotname,"set output 'Plot_Data ");
  strcat(plotname,indiceplot);
  strcat(plotname,formatplot);
 
@@ -397,7 +404,7 @@ FILE *gplot = popen("gnuplot -persist","w");
   fprintf(gplot, "set term png\n");
   fprintf(gplot, plotname);
   fprintf(gplot, "set xlabel 'Segundos\n");
-  fprintf(gplot, "set ylabel 'Concentracion de CO2 [ppm]'\n");
+  fprintf(gplot, "set ylabel 'Concentracion de Metano [ppm]'\n");
   
   fprintf(gplot, "set title 'Gas(t)'\n");
   fprintf(gplot, "unset key\n");

@@ -56,7 +56,8 @@ int main(void)
   		analog=readADC(port);
 		escribirxy_txt_number(i,(analog),j);
   		escribirxy_txt(i,(analog));
-  		printf("El valor de Gas de CO2 es %f ppm en el ambiente !\n",analog);
+                plot();
+  		printf("El valor de la concentracion de Metano es %f ppm en el sensor !\n",analog);
   		i=i+1;
 		k=k+1;
 
@@ -82,7 +83,7 @@ int main(void)
   */
  	 HTML_LatLongWrite(lat,lon);
   printf("...Generando archivo de HTML con los Mapas....\n");
-  	updateGoogleMaps();
+  //	updateGoogleMaps();
   printf("...Abriendo Firefox....\n");
   return 0;
 }
