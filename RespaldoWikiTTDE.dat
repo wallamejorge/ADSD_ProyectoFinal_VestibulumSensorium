@@ -1,672 +1,845 @@
-<center>[[File:BannerGeneralTutorial.png]]</center>
+'''Módulos Beagle Bone Black''' <br>
+[[File:BeagleBone Black dog.JPG]]<br>
+[[beagle_gps| ver]]
 
-----
+__TOC__
 
-__TOC__ 
-=Autores=
+<center> [[File:LogoBeagle.jpg]] </center>
+<center> <H1> '''Vestibulum Sensorem'''</H1></center>
+
+=INTEGRANTES=
 
 * by {{signature|nombreapellido=Juan Felipe Martinez|login=jf.martinez1554}}
 * by {{signature|nombreapellido=Jorge Luis Mayorga|login=jl.mayorga236}}
 * by {{signature|nombreapellido=Monica Tuta Fajardo|login=mj.tuta172}}
 
-= Introducción a la BeagleBone Black =
-
-----
-
-La tarjeta de desarrollo BeagleBone Black (R) es una plataforma hardware donde pueden diseñarse, compilarse y ejecutarse códigos utilizando lenguajes desde bajo nivel hasta programación de muy alto nivel. Suele llamarsele a la BeagleBone como un mini computador ( dado su reducido tamaño y bajo costo ), sin embargo, la beaglebone black posee todo el poder de computo necesario para proyectos ambiciosos.
-
-La beaglebone black suele conseguirse por un valor aproximado de 45$ e incluye un procesador de 1 GHz ARM Cortex-A8, Memoria RAM de 512 MB DDR3, soporte para video HDMI , puerto para ethernet, puerto USB , entre muchas otras. 
-
-El sistema operativo por default de la BeagleBone Black es Linux Amstrong (R)
-
-<center>  <youtube>ciX08ysl6LE</youtube></center>
-
-* 1 Procesador TI Sitara AM3359 1-GHz superscalar ARM Cortex™-A8
-* 2x 200MHz ARM7 coprocesador en tiempo real programable
-* Memoria 512-MB DDR3L RAM
-* Almacenamiento 2GB eMMC
-* PowerVR SGX 530 GPU,
-* LCD expansion header,
-* micro HDMI
-* Salida estéreo audio-out vía HDMI
-* Puertos USB
-* On-chip 10/100 Ethernet
-* MicroSD slot
-* 5 puertos seriales
-* 8 salidas PWM
-* 7  convertidores Analógico/digital (1.8V max)
-
-Dado el gran poder de la tarjeta, se han desarrollado multiples proyectos que van desde una simple aplicación de instrumentación electronica,hasta proyectos como sistemas autonomos, seguidores de lineas, interacción entre la plataforma física (hardware) y un sistema con plataforma android, en la siguente figura se pueden observar algunos proyectos ya realizados en todo el mundo utilizando la Beaglebone.
-
-<center>[[File:proyectosbeagle.png|530px]]</center>
-
-Es importante resaltar que la Beaglebone al funcionar utilizando el sistema operativo linux Amstrong ( en general cualquier sistema operativo ) el uso de los puertos no es de manera directa como se utilizaría en un micro controlador , en este caso para configurar, acceder y trabajar con los puertos y perifericos es necesario modificar los directorios y sus contenidos y así controlar la tarjeta.
-
-=Primeros Pasos...=
-
-== Conociendo... la Terminal ==
-[[File:Banner2.png]]
-
-Dado que el SO (Sistema Operativo) de la tarjeta por default es Linux Amstrong, es necesario familiarizarnos con la terminal de Linux para poder trabajar con la BeagleeBone Black de manera mas facil, intuitiva y eficaz.
-
-La terminal de Linux es una herramienta muy potente que sin embargo, al comienzo puede ser un poco tedioso se aprender a utilizar, pero una vez dominada resulta una herramienta indispensable para el uso en sistemas operativos en base a UNIX (MAC OS, UBUNTU, DEBIAN, distros Linux, entre otras ).Esta terminal permite el acceso a nuestro computador sin utilizar un ambiente grafico.Como primera medida, es importante resaltar como acceder a ella,esto ingresando al bash del sistema  y buscando la palabra Terminal , con lo cual una vez ya se hemos podido acceder a la consola encontraremos que ya tiene escritos dos palabras :
- <center>[[File:Bash.png|700px]]</center>
-Una vez tenemos la ventana de la terminal debemos revisar que el usuario sobre el que estamos trabajando no sea invitado , es decir que debe aparecer un usuario seguido de un @ , luego el nombre de la PC , : , y un signo $ :
-     usuario@nombredePC:~$ 
-Gracias a esto podremos usar el comando "sudo" sin nigun problema.
-
-Los comandos mas importantes para comenzar a utilizar la terminal son (el signo $ ya lo pone la terminal, asi que no es necesario copiarlo, es para denotar que se debe escribir ese comando):
-
-* $sudo               => Da poderes de super usuario para realizar modificaciones especiales, ejecutar comandos que pueden tener restricciones, etc.
-*$cd                    => Cambia el directorio que estamos trabajando 
-**$cd /carpeta1/carpeta11/carpeta111/carpeta1111/          =>Ahora estamos en la carpeta1111 
-**$cd ..               =>Regresa al directorio anterior , en este ejemplo seria carpeta111
-**$cd                  =>vamos al directorio principal (Home)
-**$cd /                =>Accedemos a las carpetas del sistema (en windows seria como entrar a system32 o la carpeta del disco C "Windows")        
-*$ls                   =>Muestra la lista de los contenidos en la carpeta sobre la que estamos
-* CTRL + l           => limpia la consola (es como el clc de matlab)
-*$pwd                 =>Nos dice el directorio donde estamos trabajando 
-*$rm                   =>Borrar archivos o directorios
-*$mkdir  nombre     =>Crea un directorio(carpeta)  de nombre "nombre"
-----
-=== Primeros  Comandos ... creando un directorio ===
-
-Primero, al abrir la terminal tendremos una ventana del siguente estilo:
-
- <center>[[File:terminalLinux2.jpg|500px]]</center>
-
-Donde comenzaremos a escribir comandos y familiarizarnos con la consola para trabajar así la beaglebone Black.El primer comando que vamos a utilizar una ves tengamos la BeagleBone Black Conectada a la PC vía USB es :
-     $cd ~
-Lo que nos ubicara en el directorio Home , para comprobar que ha funcionado utilizamos el comando ls ( para  ver los archivos )
-     $ls 
-Si todo ha funcionado bien, deberíamos tener una lista de carpetas  y archivos en la terminal con nombres como :
-
-*Documents ( o Documentos si esta en español) 
-
-*Music( o Musica  si esta en español)
-
-*Download (o Descargas si esta en español)
-
-<center>[[File:lslinux.png|500px]]</center>
-
-Sobre este directorio vamos a ubicar una carpeta para trabajar los archivos fuentes que necesitemos  ( carpeta de trabajo) o si se requiere trabajar en equipo de una forma mas profesional vamos a utilizar un Git  ( alojado en Github.com ) que mas adelante se explicara  en detalle, por ahora es importante organizar nuestro espacio de trabajo.
-
-Para escoger un directorio de trabajo utilizamos el comando "cd" que vimos anteriormente pero esta vez nos vamos a mover a una carpeta / directorio diferente a HOME , por ejemplo a Documents :
-
-     $cd Documents/
-
-TIP: La terminal de Linux tiene una función muy útil y es auto completar las palabras , es decir que si estamos en la carpeta HOME y escribimos cd /Do   y luego la tecla tab (OJO SIN DAR ENTER) y la terminal completara la palabra que estábamos escribiendo, es decir Documents.
-
-Para crear nuestro directorio de trabajo simplemente utilizamos el comando mkdir :
-
-     $mkdir WorkFolder 
-
-Y se creara en /Documents una carpeta llamada WorkFolder en la cual vamos a trabajar , para acceder a esta carpeta simplemente usamos cd para ingresar
-
-    $cd WorkFolder
-
-y ya estamos dentro del directorio para crear documentos y todo lo que necesitemos para programar la BeagleBone Black.
-
-<center>[[File:mkdirCapture.png|500px]]</center>
-
-
-----
-
-=== Primeros Comandos ... creando un Repositorio Git ===
-
-Muchas veces al trabajar código en grupo, o incluso solo para tener un mejor control de las versiones se recomienda el uso de un repositorio como un Git.A diferencia de Dropbox, permite un control mas complejo y sofisticado de los archivos manejados, y gracias a que esta orientado a codigo tiene herramientas para compara lineas donde han habido cambios, hacer comentarios , etc.
-
-¿Que es GIT?
-
-Git es un software de control de versiones de proyectos. Fue desarrollado por Linus Torvalds (el creador de Linux) pensando en una forma de controlar proyectos de programadores en conjunto y como facilitar el trabajo a distancia.
-
-¿Que es GIThub?
-
-GIThub es un entorno social y amigable para el uso de control git. En esta pagina se pueden hacer comentarios, seguir personas, agregar "amigos" y muchas otras funciones de las redes sociales, pero enfocado al desarrollo de software. Esta disponible para linux, mac y windows.
-
-¿Como comenzar?
-
-Primero, hay que tener una cuenta en github, para ello solo se necesita registrarse y listo.(los pasos se enumeran con [.])
-
-<center>[[File:Github.PNG|650px]]</center>
-
-[1] https://github.com/
-
-[2] Crear cuenta:
-
-*[2.1]Pick a username (selecciona un nombre de usuario)
-
-*[2.2]your email (Asocia un email)
-
-*[2.3]Create a password (crea una contraseña, github exige que tenga al menos un numero)
-
-*[2.4] Sing Up for GitHub (dale click)
-
-
-Una vez se tiene la cuenta en github (usando linux) se puede ser parte de un proyecto o crear uno propio desde el comienzo.Las instrucciones [3] son para la creación de un proyecto nuevo (repositorio) y las instrucciones [4] son para unirse a un proyecto ya existente.
-
-[3] En la pestaña Repositories ( Contributions, Repositories,Public Activity) se encuentran los repositorios ya creados, para crear uno nuevo, nos dirigimos a NEW( all,public,source,forks, mirrors, New).
-
-Después de darle click a new, aparecerá una nueva interfaz para escoger el creador el nombre del repositorio (owner /Repository name).Tambien es importante poner una descripción del repositorio y si el repositorio es de carácter publico o privado (para privado toca pagar ).
-
-Luego (para evitar muchas lineas de código y sufrir después ) es indispensable darle check al cuadro de INITIALIZE THIS REPOSITORY WITH A README y escoger add.gitignore (C,java,pyhton,etc) y un archivo de licencia (GPL :libre libre,Apache:guarda patentes ...).
- 
-Listo, ya esta el repositorio creado, podemos ir a nuestro usuario en la esquina superior derecha y ver nuestro usuario una hojita con un +, un destornillador con una llave inglesa y un logo de salir.
-
-Ahora saldrá en nuestra pestaña de Repositories el nuevo Repo que acabamos de crear.
-
-[4]Buscamos la persona dueña del repositorio ( puede ser nosotros mismos) y entramos al repo.
-
-*[4.1]Nos aparecerá en la parte superior el nombre del usuario seguido de una slash / y el nombre del repositorio. Abajo la descripción de repositorio y mas abajo el numero de commits hechos, el numero de branchs, el numero de releases y contributors.
-
-*[4.2]Debajo de estas estadísticas del git, vemos los archivos dentro del repositorios ( y las carpetas también) con el usuario que realizo la ultima modificación y a que horas.
-
-*[4.3] Por ultimo se vera el README del proyecto.
-
-*[4.4]Si nos dirigimos a la parte derecha de la pantalla vemos <>Code con información e issues, PUll requests, wiki, pulse, graphs, network, settings y por ultimo y mas importante el HTTP del git.
-
-*[4.5]El http del git ( no el del navegador que estaremos viendo en ese momento ) Https clone URL es la información con la cual sincronizaremos nuestra PC con el git ( asi como dropbox). Asi que copiamos esta dirección que sale en HTTPS CLONE URL.
-
-*[4.6]Nos dirigimos a nuestra carpeta en linux que queramos usar para trabajar en el proyecto, y desde la terminal usando comandos cd llegamos a ese directorio. Una vez dentro, usamos el comando :
-
-      $git clone "urldelrepositorio.git"
-
-
-<center>[[File:gitclone.png|400px]]</center>
-
-El link se cambiara según el repositorio que se necesite.
-
-Este comando git clone descargara a su computador todo el contenido del git y genera un link (indirecto ) con git.
-
-*[4.7] Una vez creada la carpeta del git, trabajamos sobre el proyecto, y a diferencia de Dropbox, este no se actualiza automáticamente, tenemos que darle una serie de comandos para subir los cambios.
-
-*[4.8] Los comandos para subir cambios son los siguientes ; lo que este entre %% es para cambiar:
- 
-
-       $git add nombre del archivo
-
-o si se desea toda la carpeta seria git add *
-
-       $git commit -m "Mensaje de los cambios hechos"
-
-       $git push
-y  listo , si revisamos la pagina de git en internet estará actualizada con la nueva información.
-
-== Conociendo... la BeagleBone Black  ==
-
-[[File:Banner3.png]]
-
-Una vez que tenemos nuestra BeagleBone en las manos , lo primero que debemos hacer es conocer los componentes, su localización y su forma de operar.
-Como se menciono anteriormente la tarjeta tiene un procesador de 1 Ghz mono nucleo,posee saldia hdmi, puerto usb, dos set de pines input /output que son los llamados P8 Y P9 ( cada uno va desde 1 hasta el 46) y dentro de ellos estan los puertos seriales, los conversores analogo digitales  / digitales analogos , etc.
-
-La beaglebone black es una version de la beaglebone, por ello aunque muchas cosas puedan parecerse, existen algunos puertos, pines, rutas de configuración que pueden diferir de la beaglebone normalita.La Beaglebone viene con un interesante y muy completo tutorial para comenzar a utilizar la Beaglebone, sin embargo primero vamos a conocer un poco mas sobre la distribución del hardware en la tarjeta:
-
-<center>[[File:Bbb-details3.png|600px]]</center>
-
-Observado la imagen tomada de [1]
-Podemos observar claramente la ubicación del puerto ethernet, sin embargo, al lado de el, se encuentra el conector USB, con el cual vamos a comunicar la tarjeta con el computador.Tambien se pueden apreciar los cuatro leds superficiales que son el indicador de un buen funcionamiento de la beaglebone, sin embargo tambien pueden usarse en nuestras aplicaciones sin ningun problema.Estos leds (cerca del puerto ethernet) tienen los nombres de USR0, USR1,USR2,USR3 y PWR.Por default los leds tienen asignadas las siguentes funciones:
-
-*USR0 esta configurado para parpadear anunciando asi que esta funcionando correctamente
-*USR1 esta configurado como centinela de la microSD
-*USR2 esta configurado para anunciar un funcionamiento del CPU
-*USR3  esta configurado para anunciar el uso de acceso por MMC 
-
-<center>[[File:ConectionBeagle.png|550px]]</center>
-
-Lo primero al conectar la Beaglebone black al computador es esperar a que la pc reconozca el dispositivo y esta preparado para trabajar con la tarjeta ( esto puede tomar al rededor de unos 30-50 segundos) y una vez estemos listos para comenzar a utilizar nuestra tarjeta vamos a revisar el contenido de la pagina de BeagleBone.org para revisar material importante antes de comenzar a programar nuestra tarjeta.
-
-<center>[[File:Beaglewebpage.png|500px]]</center>
-
-En la Opción de Getting Start encontraermos informacion para solucionar problemas en caso de no reconocer la USB y como acceder a la BeagleBone, sin embargo, una vez conectada la BeagleBone Black a la PC por medio de USB solo es necesario esperar que el computador lo reconosca y acceder via firefox o google chrome ( En Internet explorer no funciona ) y escribir en la barra de dirección :
- http://192.168.7.2
-Esta es la pagina web interna de la beaglebone Black donde podremos encontrar ejemplos de programacion en boneScript y acceder a otras funciones de la beagle bone, pero siempre via navegador web. [1]
-
-
-=== Primeros Comandos ... Conectando la BeagleBone Black a la PC ===
-
-----
-
-==== Realizar PING entre la BeagleBone Black y la PC====
-
-Una vez conectada la BeagleBone Black vía USB al computador abrimos la terminal para verificar la conexión de la BeagleBone Black vamos a utilizar el siguiente comando:
-
-        $ping 192.168.7.2
-
-Este comando establece una conexión de números aleatorios entre la PC y la tarjeta y así se verifica si se esta enviando y recibiendo la información adecuadamente.La consola comenzara a enviar datos aleatorios con el siguiente formato :
-
-<center>[[File:ping.png|400px]]</center>
-
-
-----
-
-==== Conectar la BeagleBone Black mediante SSH====
-
-Una vez confirmada la conexión de la BeagleBone usando el comando $ping podemos intentar conectarnos usando el comando en la consola :
-
-       $ssh -X root@192.168.7.2
-
-donde el numero 192.168.7.2 es la dirección por default de todas las BeagleBone Black, y el fragmento del comando "-X" realiza una conexión entre el entorno gráfico de Ubuntu y el sistema operativo de la BeagleBone y así poder acceder a las aplicaciones con entorno gráfico como Gedit y Firefox.
-
-<center>[[File:ssh.png|400px]]</center>
-
-y para salir de la BeagleBone y retomar el control sobre la consola podemos utilizar el siguiente comando:
-
-       $exit
-
-<center>[[File:exit.png|400px]]</center>
-
-Una vez conectados a la BeagleBone Black podremos copiar archivos desde la PC a la BeagleBone Black  y viceversa usando el siguente comando:
-
-
-   scp archivolocal usuario@maquina_remota:archivoremoto
-
-Por ejemplo , si queremos copiar un archivo llamado demo.txt que tenemos en ~/Documentos/Work/demo.txt y lo queremos copiar a la carpeta de la BeagleBone Escritorio :
-
-   scp ~/Documentos/Work/demo.txt root@192.168.7.2:~/Escritorio
-
-Y para copiar de la BeagleBone Black a la PC usamos :
-
-  scp root@192.168.7.2:directorioBeagle/archivo.txt ~/directoriopc/
-
-
-
-
-==== Entorno de Programación ====
-
-La tarjeta de desarrollo viene con un servidor web basado en html que contiene un extenso tutorial , librerías para BoneScript (el lenguaje de programación de la Beagle, aunque también  se puede programar en C, java, C++, etc.Para acceder a estos manuales y guias es necesario abrir en firefox/Chrome la siguente dirección :
-
-     http://192.168.7.2
-
-<center>[[File:beaglehtml.png|500px]]</center>
-
-En este portal existen varios tutoriales y ejemplos para comenzar a utilizar la BeagleBone Black usando BoneScript.Para comenzar a probar la BeagleBone vamos a analizar el primer ejemplo que encontramos en el portal:
-
-<center>[[File:ledstest.png|500px]]</center>
-
-
-En este ejemplo se encienden los LEDS USR que habíamos caracterizado anteriormente. En el código se utiliza gracias a BoneScript ya existen múltiples funciones para utilizar los periféricos (Hardware)
-como por ejemplo la función pinMode() que define si el pin es de salida o de entrada.
-digitalWrite() que permite escribir una señal lógica ( 1 lógico = 3.3v) y usando la función se setTimeout se puede mantener el estado de los leds antes de que el código termine y se apaguen los leds.
-Para probar este ejemplo solo basta seleccionar "run" .
-
-<center>[[File:testLeds.png|350px]]</center>
-
-La BeagleBone viene con un entorno de desarrollo para programar en BoneScript,C,java,etc. Llamado Cloud9 al cual se puede acceder mediante Firefox ingresando la siguente url:
-
-     http://192.168.7.2:3000/
-
-<center>[[File:cloud9capture.png|500px]]</center>
-
-== Conociendo... la programación en C  ==
-[[File:Banner4.png]]
-
-Primero que todo, vamos a conocer un poco del lenguaje C para poder hacer nuestros programas y correrlos en la BeagleBone Black. Aun cuando la Beagle Bone soporta otros lenguajes como java, python, entre otros, el lenguaje C sigue siendo una herramienta poderosa , muy rápida, limpia , eficiente y con mucho soporte.
-
-El código C podemos descomponerlo es tres bloques muy generales :
-*Librerías
-*Función Main
-*Funciones auxiliares
-
-Un ejemplo de nuestro primer código seria :
-
-    #include <stdio.h>
-    void main ( void )
-    {
-       saludo( );
-
-
-       primer_mensaje( );
-    }
-     void saludo(void )
-    {
-    printf ("Buenos dias\n");
-    }
-
-Donde podemos identificar las librerias como los archivos de codigo con funciones predefinidas que nos pueden ayudar mucho, mas adelante vamos a hablar de la libreria BBBio.h que se desarrollo para el proyecto y facilita mucho algunos procesos con la BeagleBone Black.
-
-La linea :
-
-         #include <stdio.h>
-
-Codifica la llamada de una librería de funciones llamadas standar Input Ouput como manejar datos, sumar, restar, crear variables, imprimir en consola,etc.
-
-Las lineas :
-
-      void main ( void )
-        {
-       saludo( );
-         }
-
-Se encargan de definir la función main como una función tipo vacío ( no retorna nada ) y que tiene como parámetros vacío (no necesita parámetros) ; la linea de saludo(); llama a la función saludo y ejecuta las lineas de código que ella contiene.Los tipos de variable y datos mas comunes en C son:
-*void
-*int
-*double
-*float
-*char
-
-=== Compilación ===
-Para poder correr un programa en C es necesario utilizar un compilador para generar un ejecutable, desde linux solo basta una linea :
-     $cc main.c 
-
-y se generar un archivo por default llamado a.out para correrlo se utiliza el comando
-
-     $./a.out
-
-Sin embargo, muchas veces , es mejor utilizar un archivo llamado makefile que automatiza el proceso de compilación.
-
-==== Creación de un makefile ====
-
-Para la creación de un makefile sencillo vamos a abrir gedit usando el siguente comando:
-      $gedit & 
-
-El símbolo & lo que permite es que se siga ejecutando en segundo plano gedit y no perdamos el control sobre la consola.
-
-Deberíamos tener una imagen como la siguiente en la ventana:
-
-<center>[[File:bash_Gedit.png|400px]]</center>
-
-En esta ventana escribiremos el siguiente código y lo guardamos con el nombre makefile :
-<center>[[File:makefilegedit.png|400px]]</center>
-
-La idea es que podamos personalizar nuestros makefile según lo necesitemos, por esta razón 
-de modo que si solo necesitamos para este ejemplo automatizar un proceso sencillo de compilación para main.c tendríamos que escribir lo siguiente :
-
-     main:cc main.app main.c
-
-Es importante anotar que las lineas comando archivo1 .... esta tabuladas ( con la tecla tab) de lo contrario, makefile no entenderá las instrucciones.
-
-En esta linea de codigo anterior, hemos cambiado un poco la estructura  y ahora tenemos un main.app , esta es una convención para los ejecutables dado que "cc" tiene como característica que puede usare para que el archivo a.out tenga otro tipo de nombre y extencion solamente indicándolo antes del main.c, en este caso use la extencion .app por gusto, pero puede usarse cualquier otro.
-
-Vamos ahora a crear un makefile para automatizar la copia de multiples archios a la BeagleBone Black creando un makefile con el siguente codigo :
- 
-     BBBcp: main.c BBBio.h makefile
-        scp mainc.c BBBio.h makefile root@192.168.7.2:Desktop
-
-Hasta ahora hemos compilado nuestros codigos C usando el compilador de linux llamado cc, pero este compilador no es reconocido por la BeagleBone Black , razon por la cual es necesario usar el compilador de la BeagleBone Black :
-
-     arm-angstrom-linux-gnueabi-gcc -o nombredelejecutable nombredemiprogramaenC.c
-
-Es recomendable que se maneje una extension comun para los ejecutables, como buena practica se recomienda usar la extencion .app para diferenciarla de los demas tipos de archivos.
-
-=== Programando usando la BBBio.h===
-
-La libreria BBBio.h ha sido desarrollada para ahorrar inconvenientes a la hora de usar la beaglebone black, esto dado que para acceder a los puertos es necesario realizar configuraciones un tanto complicadas que serán explicadas mas adelantes, pero por ahora vamos a aprovechar la potencia de la librería para encender y apagar un puerto digital de la BeagleBone.
-
-== Conociendo... los Puertos  ==
-[[File:Banner5.png]]
-
-La BeagleBone Black tiene puertos seriales , analogos y digitales IO.
-Para la configuracion de los puertos IO digitales vamos a conocer un poco como funciona la BeagleBone Black.
-En vista de que no estamos usando un microprocesador sencillo, sino que estamos trabajando en una tarjeta con varios perifericos embebidos, el acceso necesita un sistema de mapeo utilizando un intermediario llamado SISTEMA OPERATIVO.
-
-Para el caso de la BeagleBone Black el sistema operativo por default es Linux Amstrong y para acceder a la configuracion de la tarjeta se modifican archivos de texto ubicados en diversos directorios de sistema operativo. Para entender mejor esto, vamos a configurar los puertos GPIO (General Purpose Input Output )  :
-
-*Entrar a la terminal y acceder a la BeagleBone Black
-*Desde la BeagleBone Black acceder a la carpeta de configuracion del sistema con :
-    cd /
-   <center>[[File:GPIOterminal.png]]</center>
-*En la carpeta gpio dentro de class en sys vamos a encontrar 
-  <center>[[File:gpiodir.png]]</center>
-
-*Como vemos, exiten algunos puertos, pero otros no , esto es gracias a que previamente hemos exportados los puertos presentes en la BeagleBone Black, y si quieres habilitar otro puerto es necesario exportarlo usando:
-
-    echo 44 > /sys/class/gpio/export
-
-Con esta linea de codigo lo que estamos es modificando el archivo export y agregando una linea con la información del puerto que queremos exportar.Nota: Los puertos son P8=1, P9=2, Y la formula para calcular el numero de puerto es :
-
-#Puerto=P8*32+no.Puerto,   ejemplo :   Puerto P8 12 => 1*32+12=44
-
-
-*Accedemos al puerto que hemos creado y vemos el contenido:
-   ls /sys/class/gpio/gpio44/
-
-y debemos encontrar carpetas como  :
-active_low  direction  edge  power  subsystem  uevent  value
-
-*Cambiando el contenido de direction de input a output podemos definir si es entrada o salida
-*Leyendo el archivo value sabemos si hay un 1 logico o 0 logico:
-  cat value
-
-
-
-
-
-Los puertos seriales se nombran  UART y van desde el 0 hasta el 5.
-Los pertenecientes a 0 vienen configurados por default como seriales, es decir, no se debe realizar una configuración extra. Estos puertos se encuentran en la parte interior de los pines laterales<br>
-En cuanto a los puertos 1,2,3,4,5 se encuentran señalados en la imagen con color amarillo y blanco y deben ser configurados tal como se explica en secciones próximas. Para estos puertos es importante tener en cuenta RX y TX (amarillo) para la lectura y escritura de información.
-Una prueba sencilla del funcionamiento de estos puertos es hacer un corto entre RX y TX y ve r si al escribir en el servidor Beagle Bone Black se reciben los mismos datos enviados
-[[File:UARTBEAGLE.jpg]]
-
-== Probando... con Blinking Led ==
-
-
-Ahora bien, para mostrar el funcionamiento del código en C se mostrará a continuación el código implementado para realizar blinking led 
-
-La idea es reconocer por medio del encendido y apagado de los LEDs presentes en la Beagle Bone Black y, adicionalmente, mostrar un saludo de inicio para comprobar un buen funcionamiento <br>
-<br>
-|___________________________________________________________________________________|
-<br>
-|Nombre:BlinkingLed.c                                                                                                                                   |<br>
-|Compilador:ARM                                                                                                                                           |<br>
-|Entradas:ninguna                                                                                                                                          | <br>
-|Salidas:Mensaje de Bienvenida en bash y led P8_12 enciende                                                                   |<br>
-|Autores : Jorge Luis Mayorga Taborda, Monica Tuta Fajardo, Juan Felipe Martinez                                 |<br>
-|___________________________________________________________________________________|<br>
-
-
-
-//--------------------------------------------------------//<br>
-//------------Declaraciones Librerias---------------//<br>
-//--------------------------------------------------------//<br>
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-//--------------------------------------------------------//
-
-//--------------------------------------------------------//<br>
-//------------Declaraciones Funciones-------------//<br>
-//--------------------------------------------------------//<br>
-void Welcome(void);<br>
-void test_LEDS(void);<br>
-void test_DigitalOut(void);<br>
-void test_DigitalInput(void);<br>
-//--------------------------------------------------------//<br>
-
-
-
-
-//-------------------------------------------------------//<br>
-//----------------Funcion Principal------------------//<br>
-//------------------------------------------------------//<br>
-int main(int argc, char **argv)<br>
+= DESCRIPCIÓN GENERAL DEL PROYECTO =
+
+Las emisiones de contaminación mundial cada día se hacen mayores con el aumento del mal manejo de la mano del hombre. Muchas de estas emisiones componen gases tóxicos (para grandes proporciones) de CO2, CO, CH4, NH4, butano, entre otros. Una de las formas de controlar este aumento excesivo es iniciar con la cuantificación de las concentraciones emitidas diariamente.
+Para ello, el proyecto final de Arquitectura y Diseño de Sistemas Digitales implementa en la tarjeta de programación Beagle Bone Black (Ver tutorial [[beagle_gps| ver]] ) un sistema de medición sensorial de gases ambientales.
+Se desea, además, que el sistema sea capaz de tomar los datos por medio de un sensor, los visualice en un servidor y los pueda enviar a otro. Esto, con el fin del simular el envío a larga distancia de medidas ambientales a centros metereológicos desde lugares remotos  como fincas o fábricas en las afueras.
+
+Con el proyecto se desarrollan habilidades de programación e implementación de periféricos que permiten reconocer la importancia de un dispositivo como la BeagleBone Black en la solución de problemas de la actualidad. Un problema especIifico a tratar es la medición de metano producido por el ganado, en especial las vacas. Estos animales son los causantes de la mayor parte de contaminación que genera el agujero en la capa de ozo, de ahí su importancia
+
+Dirección del repositorio de proyecto [https://github.com/wallamejorge/ADSD_ProyectoFinal_VestibulumSensorium/]
+
+<center> [[File:Metano.jpg]] </center>
+<center> Metano. [1]</center>
+
+== Cronograma de actividades ==
+<center>
+<TABLE WIDTH="70%" BORDER="1">
+
+  <TR>
+    <TD> '''FECHA''' </TD>
+    <TD> '''ACTIVIDAD''' </TD>
+    <TD> '''ALCANCES''' </TD>
+  </TR>
+  <TR>
+    <TD> Octubre 28 a noviembre 2 </TD>
+    <TD> Reconocimiento de la tarjeta Beage Bone Black  </TD>
+    <TD> Durante clase se realizaron las primeras pruebas de funcionamiento de la tarjeta</TD>
+  </TR>
+  <TR>
+    <TD> Noviembre 4 al 9 </TD>
+    <TD> Desarrollo de los primeros programas propios implementados en la Beagle Bone, compra del periférico y del sensor</TD>
+    <TD> Se reconoció el sistema operativo de la tarjeta y partir de ello se uso el lenguaje de programación
+en C para implementar los primeros códigos que se encuentran la en la sección de Módulos Beagle Bone Black 
+(link parte superior). Adicionalmente, Se realizó la compra del GPS, se habilitaron los puertos correspondientes (seriales) de la Beagle 
+Bone Black para habilitar la funcionalidad del periférico y se realizaron las primeras pruebas con el mincom  </TD>
+<TR>
+    <TD> Noviembre 11 al 16 </TD>
+    <TD> Funcionamiento del GPS y sensor</TD>
+    <TD> Durante esta semana se logró el primer funcionamiento del periférico y se encuentra, además,  que para su funcionamiento se requiere 
+de la espera aproximadamente de 20 minutos para visualizar datos apropiados. Por otro lado, se verificó el funcionamiento del sensor de gas 
+con su correspondiente salida análoga y/o digital. Para el funcionamiento del sensor, se probó con el gas emitido por los estudiantes por las
+fosas nasales y también con gas butano  </TD>
+  </TR>
+<TR>
+    <TD> Noviembre 18 al 23 </TD>
+    <TD> Terminar de realizar ajustes de programación e implementación</TD>
+    <TD> Durante la semana previa a la entrega se realizaron cambios para perfeccionar y facilitar el funcionamiento del periférico y del sensor
+tales como la conexión más rápida del periférico para su posterior reconocimiento, programas de adquisición de datos en txt y graficación y configuración
+del sensor para que el valor medido no superara el máximo requerido por la Beagle Bone Black (1.8V)    </TD>
+</TR>
+<TR>
+    <TD> Noviembre 25 al 30 </TD>
+    <TD> Finalización de pruebas, presición de medidas y presentación</TD>
+    <TD> La última semana de trabajo se probó la funcionalidad del proyecto, se calcularon errores y se mejoró la presición.
+El viernes 29 de noviembre se presentó la funcionalidad y se obtuieron resultados óptimos.
+   </TD>
+</TR>
+</TABLE> </center>
+Además, cabe resaltar que durante todo el desarrolo del proyecto se estuvo manejando a la par la wiki para el periférico y para el proyecto a pesar de inconvenientes técnicos de la página con el servidor
+
+== Vídeos y/o fotos de demostración del prototipo final ==
+<center> [[File:CajaBeagle.jpg | 500 px]]</center>
+<center> '''Vestibulum Sensorem''' </center>
+
+
+Video de funcionamiento final
+
+<center><youtube>p9cxQpskwB0</youtube></center>
+
+== Diagrama de Caja Negra ==
+* '' Parrafo 1:'' Descripción
+<center> [[File:BlackBoxBeagle.png]] </center>
+<center> '''Diagrama de caja negra''' </center>
+* Señales de Entrada del sistema (INPUT)
+** ''GPS:''  Perif'erico de entrada que permite conocer las coordenadas desde donde se est'an enviando los datos de gases ambientales.
+** ''Sensor de Gas:''  Sensor MQ135.
+** ''Reset:'' Señal para reiniciar todo el proceso de medición y en general, todo el sistema
+
+* Señales de Salida del sistema (OUTPUT)
+** ''Medidas concentración:''  Gráfica de las concentraciones a lo largo del tiempo.
+** ''Envío de datos por GPRS:''  Se envía la gráfica de concentraciones y el lugar donde se toman los datos por medio del GPS.
+** ''Ubicación Google Maps:''  Se visualiza por google maps la posición encontrada por el GPS
+
+== Macroalgoritmo general de solución ==
+
+<center> [[File:AlgoritmoBBB.png]] </center>
+
+= DESCRIPCIÓN ESPECIFICA DEL PROYECTO =
+== Arquitectura del Sistema ==
+
+<center> [[File:Arquitotal1.png | 800 px]] </center>
+
+=== Bloque Main ===
+
+Se encarga de verificar la funcionalidad de cada segmento del sistema y genra a su vez mensajes de retorno si se cumplen con los precedimientos y el orden que especifica. Adicionalmente, carga la librería BBBio.h y la página HTML main_HTML.html proporcionando, de igual forma, que se ejecuten cada uno de los métodos de cada uno de estos
+
+<font color="blue">Declaración de librerías</font>
+ #include <stdio.h>
+ #include <unistd.h>
+ #include <string.h>
+ #include <math.h>
+ #include <time.h>
+ #include "BBBio.h"
+ int main(void)
 {
-int pinIn=60;<br>
-int pinOut=44;<br>
-int entrada=0;<br>
-int analogdev=0;<br>
-Welcome();<br>
-while (1==1){<br>
 
-entrada=PIN_VALUE(pinIn);<br>
-printf("El valor del pin es :%d \n",entrada);<br>
-if(entrada==0){PIN_OFF(pinOut);}<br>
-else{PIN_ON(pinOut);}<br>
-<br>
+<font color="blue">Señal de funcionamiento</font>
+  printf("BEAGLEBONE BLACK.....is alive!\n");
+  printf("..............................\n");
 
-entrada=ANALOG_READ(analogdev);<br>
-printf("El valor del pin es :%d \n",entrada);<br>
-}<br>
-}<br>
-//-----------------------------------------------------//<br>
+<font color="blue">Inialización de variables</font>
+  double lat= 0.0 ;
+  double lon= 0.0 ;
+  double analog=0.0;
+  double i=0.0;
+  int port=0;
+  int Stop=0;
+  printf("...Se inicializaron las variables...\n");
+  initAnalogPort();
+  printf("...Se inicializo los puertos analogos\n");
+  initDigitalPort(44);
+  printf("...Se inicializo el puerto digital 44:P8-12..\n");
+  Stop=PIN_VALUE(44);
+  printf("...Arrancamos el Ciclo While de lectura analoga....\n");
+  while(Stop==0){
+  analog=readADC(port);
+  escribirxy_txt(i,(analog));
 
-//-----------------------------------------------------//<br>
-//-----------------Función Welcome--------------//<br>
-//-----------------------------------------------------//<br>
-void Welcome(void)
-{
-  printf(" ______________________________ \n");
-  printf("|..............................|\n");
-  printf("|..............................|\n");
-  printf("|BEAGLEBONE BLACK.....is alive!|\n");
-  printf("|..............................|\n");
-  printf("|....Welcome to BlinkingLed....|\n");
-  printf("|..............................|\n");
-  printf("|______________________________|\n");
+<font color="blue">Se escribe constantemente los datos que se van obteniendo con el sensor y se muestran en consola</font>
+  printf("El valor de Gas de CO2 es %f ppm en el ambiente !\n",analog);
+  Stop=PIN_VALUE(44);
+  i=i+1;
+  sleep(1);
+  }
+  printf("...Se cerro el ciclo...graficando...\n");
+  plot();
+  printf("...Termino la grafica....\n");
+  printf("...Comenzando codigos de GPS...\n");
+  lat=Read_latGPS(1);
+  lon=Read_latGPS(0);
+ printf(<font color="pink">"la latitud es: %f \n", lat </font>);
+ printf("la longitud es: %f \n", lon );
+  HTML_LatLongWrite(lat,lon);
+
+<font color="blue">Mensaje de cierre de ciclo e inicio de graficación. Se abre firefox con el HTML</font>
+  printf("...Generando archivo de HTML con los Mapas....\n");
+  updateGoogleMaps();
+  printf("...Abriendo Firefox....\n");
+  return 0;
 }
-//---------------------------------------------------//
 
-=Configurando Hardware=
+=== Bloque BBBio ===
+
+Este bloque es el encargado de proporcionar todos los métodos necesarios en el sistema. Para la funcionalidad de un bloque de esta índole, se realizó una librería especial detallada en la sección código fuente de esta página con cada  algoritmo de proceso.
+El uso de librerías ermitió un mayor orden en la segmentación de funciones y fue posible con ello conocer fallas y solucionar errores.
+Este bloque fundamentalmente se encarga de:
+*Leer el GPS, una función de gran reelevancia en el proyecto y que fue posible gracias a los comandos fgets donde se detallaban los caracteres recibidos del GPS y se comparaban con datos válidos. Esto es, si se encontraba en toda una línea de palabra de datos GPS una leta '''"V "''' no era correcto el dato y por tanto no era útil para su poserior graficación. Este método de prueba es funcional también para proyectos futuros en cuanto al reconocimiento de fallas y reporte de las mismas. 
+*Conversión de unidades de GPS a las admisibles en Google Maps
+*Habilitación de puertos análogos
+*Creación de archivos txt con la información dada por el GPS
+*Creación de imagen con gráfica de concentraciones
+*Conversión de caracteres enteros en char
+*Escritura y/o sobreescritura en el archivo HTML con nuevos datos de latitud y longitud
+
+Las entradas del bloque BBio corresponden a las mismas de todo el sistema y en cuanto a las salidas, existe una para activar la visualización y otra para enviar datos en un mensaje por consola
+
+===Visualización en página HTML===
+
+<center> [[File:BlackBoxBeagle1.png]] </center>
 
 
-== Configurando... los Puertos GPIO y Seriales ==
-8//----------------------------------------Habilitación de puertos seriales-----------------------------------------------------//
-<br>
-Se requiere habilitar estos puertos para la utilización del GPS
-<br>
-8.1 Descargar de la Wiki los paquetes de archivos correspondientes según el puerto requerido UART1,2,3,4,5. 
-<br>
-8.1 Estos archivos se descargarán automáticamente en el PC
-<br>
-8.2 Copiar archivos a la beagle Bone Black con los comandos descritos en Makefile
-<br>
-8.3 Ejecutar desde terminal  beagle:  $/lib/firmware# export SLOTS=/sys/devices/bone_capemgr.8/slots
-<br>
-8.4 Ejecutar desde terminal bealge: $/lib/firmware# echo ttyO2_armhf.com > $SLOTS.<br>
-8.4 El 2 de ttyO2 puede ser reemplazado según el puerto
-<br>
-8.5 Termial: minicom -s 
-8.6 Seleccionar opción serial port setup 
-<br> 
-8.7 Para modificar el puerto a habilitar, seleccionar opción A y modificar /dev/ttyS1 con S el número de puerto a 
-<br>
-8.7 habilitar (0,1,2,3,4,5). Intro
-<br>
-8.8 Deshabilitar control de flujo: Seleccionar opción F : Hardware Flow Cotrol : No. Intro
-<br>
-8.9 Control de flujo de bits y formato de palabra opción E. Si se quiere una tasa que no está en la lista se selecciona 
-<br>
-8.9 A o B según se requiera.Intro
-<br>
-8.10 Save setup as dFL <br>
-8.11 Exit (del minicom)
+* Como último bloque se encuentra la visualización la cual permitió conocer al usuario la concentración del gas de interés por medio de una gráfica y la ubicación del sitio en donde se realizó la toma de datos. Para ello, se implementó una página en HTML descrita a continuación
 
-== Configurando... los puertos ADC==
-*Ver configuración [http://157.253.195.181/ttdewikim1/index.php/13_20_ADSD_P3_G2  ADC...]
 
-== Configurando... un servidor ! ==
-1.a//------------------------------------------------Conect Server2 to PC-------------------------------------------------------//
-<br>
-1.1.a Descargar aplicación en el otro dispositivo (de ser necesario) para ser manejado como servidor.
-<br>
-1.1.a Un ejemplo de aplicación para Android es Servers Ultimate
-<br>
-1.2.a Abrir terminal de linux
-<br>
-1.3.a terminal: ping IPServer2
-<br>
-1.4.a terminal: ssh -X usuario@IPServer2 -P #puerto
-<br>
-1.5.a Nota1: el #puerto puede ser,por ejemplo ,2222
-<br>
-1.6.a Nota2: Password asignado por el usuario
-<br>
-//--------------------------------------------------------------------------------------------------------------------------------------//
-<br>
-<br>
-<br>
-2.//-----------------------------------------Copiar archivo a PC u otro server---------------------------------------------------//
-<br>
-2.1 Abrir terminal de la Beagle (Pasos 1)
-<br>
-// Caso PC
-<br>
-2.2.PC terminal: scp archivo.c NombredelCliente@IPCLiente:/directorio/directorio/directorio
-<br>
-// Caso server diferente
-<br>
-2.2.S terminal: scp -P #puerto archivo.c NombredelCliente@IPCLiente:/directorio/directorio/directorio
-<br>
-//El #puerto por ejemplo puede ser 2222
-<br>
-//-------------------------------------------------------------------------------------------------------------------------------------//
+[[File:HTML1.PNG | 600 px]]
+[[File:HTML2.PNG | 600 px]]
+[[File:HTML3.PNG | 600 px]]
 
-== Configurando... el GPS==
-<center>[[File:GpsBeagle.png]]</center>
-<center>'''GPS L70'''</center>
-<center>[[File:GPSmontaje.jpg|500px]]</center>
-<center>[[File:GPSmontajeBeagle.jpg|500px]]</center>
-<center>'''Montajes GPS'''</center>
+El código mostrado anteriormente divide tres secciones: caracterización de la página (inicio de código), gráfica a la izquierda  de concentraciones (código medio-final), api de Google Maps (parte final del código). Estas dos últimas corresponden a los subbloques de HTML vistos en la imagen de la arquitectura del sistema 
+Existen además dos
 
-8//------------------------------------------------------Habilitación de puertos seriales----------------------------------------------------------------------------//
-<br>
-Se requiere habilitar estos puertos para la utilización del GPS
-<br>
-8.1 Descargar de la Wiki los paquetes de archivos correspondientes según el puerto requerido UART1,2,3,4,5.
-<br>
-8.1  Estos archivos se descargarán automáticamente en el PC
-<br>
-8.2 Copiar archivos a la beagle Bone Black con los comandos descritos en Makefile
-<br>
-8.3 Ejecutar desde terminal beagle: $/lib/firmware# export SLOTS=/sys/devices/bone_capemgr.8/slots
-<br>
-8.4 Ejecutar desde terminal bealge: $/lib/firmware# echo ttyO2_armhf.com > $SLOTS. El 2 puede ser reemplazado según el puerto
-<br>
-8.5 Termial: minicom -s
-<br>
-8.6 Seleccionar opción serial port setup
-<br>
-8.7 Para modificar el puerto a habilitar, seleccionar opción A y modificar /dev/ttyS1 con S el número de puerto a
-<br>
-8.7 habilitar (0,1,2,3,4,5). Intro
-<br>
-8.8 Deshabilitar control de flujo: Seleccionar opción F : Hardware Flow Cotrol : No. Intro
-<br>
-8.9 Control de flujo de bits y formato de palabra opción E. Si se quiere una tasa que no está en la lista se selecciona
-<br>
-8.9 A o B según se requiera.Intro
-<br>
-8.10 Save setup as dFL
-<br>
-8.11 Exit (del minicom)
-<br>
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-<br>
-<br>
-9//------------------------------------------------------Conexión y obtención de datos GPS----------------------------------------------------------------------//
-<br>
-9.1 Conectar pines TX y RX de la BeagleBone a los pines de RX y TX, respectivamente. Es decir, TX Beagle con RX GPS
-<br>
-9.1  y RX Beagle con TX GPS.
-<br>
-9.1   Por ejemplo, si se usa el UART2 los pines correspondientes de la Beagle Bone son 21 para TX y 22 para RX.
-<br>
-9.2 Los datos van a llegar en 6 lineas (GPRMC,GPVTG,GPGGA,GPGSA,GPGSV,GPGLL) donde GPGLL contiene la información de
-<br>
-9.3  posición del GPS con el formato : longitud,norte/sur,longitud,East/West,Utc Time,V=invalid-A=valid,
-<br>
-//----------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+==Caracterización sensor de gas==
 
-== Configurando... el GPRS==
-*Ver configuración [http://157.253.195.181/ttdewikim1/index.php/13_20_ADSD_P3_G1  GPRS...]
+*Características físicas del dispositivo
 
-== Configurando... una Web Cam==
-*Ver configuración [http://157.253.195.181/ttdewikim1/index.php/13_20_ADSD_P3_G3  Web Cam...]
+Como solución al problema propuesto de la medición de gases contaminantes del medio, se presenta a continuación el sensor
+de gas MQ135.
 
-= Usando la libreria BBBio.h =
+<center>[[File:SensorGas.png]]</center>
+<center>"Sensor de Gases."</center>
 
-==Ejemplos de la libreria en C==
---BBBcp: BlinkingLed.c BBBio.h makefile <br>
-scp BlinkingLed.c BBBio.h SetPin.c ClearPin.c makefile root@192.168.7.2:Desktop<br>
---BBBcBlink: BlinkingLed.c<br>
-arm-angstrom-linux-gnueabi-gcc -o BlinkingLed.app BlinkingLed.c<br>
---BBBcSet: SetPin.c<br>
-arm-angstrom-linux-gnueabi-gcc -o SetPin.app SetPin.c<br>
---BBBcClear: ClearPin.c
-arm-angstrom-linux-gnueabi-gcc -o ClearPin.app ClearPin.c<br>
 
-= Primeros Programas=
-== Visualización en Google Maps==
-[[File:MAPAGPS.PNG]]
+Este sensor es preciso para la medición de gases como Amoniaco(NH3),Óxidos de mono nitrógeno (NOx), Alcohol(-OH), Benceno(C6H6),
+humo, Dióxido de carbono(CO2), el de nuestro especial interés METANO (CH3), entre otros.
+Adicionalmente, se emplea una tarjeta, como se muestra previamente, que permite la facilidad de su conexión.
+
+Características
+<table>
+<table border="1">
+<tr>
+<th>Nombre</th>
+<th>Descripción</th>
+</tr>
+<tr>
+<td>Velocidad de respuesta</td>
+<td>Rápida</td>
+</tr>
+<tr>
+<td>Sensibilidad</td>
+<td>Alta</td>
+</tr>
+<tr>
+<td>Terminales</td>
+<td>Análogo, digital (TTL)</td>
+</tr>
+<tr>
+<td>Voltaje de operación</td>
+<td>5VDC</td>
+</tr>
+<tr>
+<td>Dimensiones tarjeta</td>
+<td>32mm x 22mm x 30mm (largo, ancho, alto)</td>
+</tr>
+<tr>
+<td>Potencia consumida</td>
+<td>>800mW</td>
+</tr>
+<tr>
+<td>Potencia consumida</td>
+<td>>800mW</td>
+</tr>
+<tr>
+<td>Valores importantes de concentración de gases</td>
+<td>>CO 0-300ppm, NO2 0-20ppm, NH3 0-100ppm,
+H2S 0-100ppm, CO2 0-20.000 ppm, CL2 0-10 ppm O2 0-25%.
+Metano=????????
+</td>
+</tr>
+</table>
+Para comprobar su funcionamiento se realiza un montaje en donde al pin VCC se conecta una resistencia
+de protección pequeña (ej. 220ohms), el pin Aout a un led-resistencia-ground el pin Dout y por último 
+GND al ground del circuito.
+Además, el terminal Aout o Dout pueden ser conectados a las entradas ADC o digitales, respectivamente, 
+para ser leidas posteriormente por la Beagle Bone Black
+
+Videos de funcionamiento para CO2
+
+<center> <youtube>lAx4XdxCM5Y</youtube></center> 
+<center>'''"Prueba salida digital1 y análoga1 "'''</center>
+<center> <youtube>FB__jfe6UhE</youtube></center> 
+<center>'''"Prueba salida digital2"'''</center>
+<center> <youtube>RwY8WByB3uk</youtube></center> 
+<center>'''Prueba salida análoga2'''</center>
+
+Video de funcionamiento para butano C4H10
+
+<center> <youtube>kKlIrrHyxgM</youtube></center>
+<center> '''''Prueba Butano'''''</center>
+
+Videos de funcionamiento para CH4
+
+== Material de apoyo ==
+
+Como soporte para el análisis de datos se utilizó la herramienta GNUplot que permitió conocer por medio de una gráfica la relación de segundos contra concentración.
+A continuación se presenta el detalle del funcionamiento e instalación de esta herramienta
+
+===Graficando....con GNUplot===
+GNU es un programa de software libre para graficar usando la consola. Es muy reconocido a nivel internacional y sobre todo en ámbito académico pues con pocos comandos se puede llegar a obtener gráficas muy profesionales. El uso de este paquete gráfico es muy utilizado para realizar gráficas en C.
+Para instalarlo en la BeagleBone Black es necesario descargar el siguiente paquete :
+  http://sourceforge.net/projects/gnuplot/files/latest/download?source=files
+Y copiarlo a la BeagleBone Black una vez se tenga des compresa la carpeta 
+*Una vez ya copiado a la BeagleBone Black ejecutamos desde la terminal los siguentes comandos 
+   chmod +x install-sh.sh 
+   ./configure
+   make all
+   make install
+Y ya tendremos instalado GNUplot en nuestra BleagleBone Black
+
+= MEMORIAS DE CÁLCULO (VER MATRIZ SEGÚN PROYECTO) =
+
+La información geoestacionaria (latitud y longitud) está contenida en los protocolos de comunicación GPGLL,
+así se hizo para encontrar las coordenadas de una fila de datos GPGLL:
+
+'''$GPGLL,0436.1094,N,07403.9133,W,200304.000,A,A*4B'''
+
+'''$GPGLL''' - Geographic position, latitude / longitude
+
+'''LATITUDE:''' 0436.1094,N 
+
+4 grados 36.1095 minutos NORTE
+
+'''LONGITUDE:''' 07403.9133,W
+
+74 grados 03.9133 minutos OESTE
+
+'''COORDINATED UNIVERSAL TIME:''' 200304
+
+20:03:04 UTC
+
+Cómo se puede observar ya teniendo los datos de geoposicionamiento del GPS podemos transformalos a unidades rectangulares:
+
+'''LATITUD'''=4+(36.1094)/60=4.60182333
+
+'''LONGITUD'''=74+(3.9133)/60=74.06522167
+
+las cuales pueden ser ingresadas al API de Gooogle maps para obtener un punto de la localización.
+
+<center> [[File:Reisstencia2.png | 600 px]]</center>
+
+En la imagen se puede observar cómo para el CO2 al poseer Rs/Ro igual a 1 se puede tener una sensitividad de 100 ppm de moléculas de CO2.
+
+= RESULTADOS =
+<center> [[File:capturapantalla1.png | 800 px]]</center>
+
+cómo se puede ver en la captura de pantalla se hace uso del ADC (Analog Digital Converter) para obtener las partículas por millon e imprimirlas en la terminar, así mismo cuándo se termina el proceso se genera una página web hecha en HTML que posee una imagen con la gráfica del gas y la localización geográfica obtenida con el GPS.
+
+En la captura de pantalla se observa cómo se pudieron obtener los datos del GPS para luego poder usarlos en el HTML que se usa para generar el API de google maps.
+
+
+Adicionalmente, los resultados gráficos se mostraron en una página HTML que se abría automáticamente se ejecutaba, con el pulsador correspondiente, la opción de cierre de ciclo. EL aspecto de esta página fue del siguiente estilo
+<center>[[File:Visualizacion.PNG | 800 px]]</center>
+
+ 
+
+== Análisis de resultados ==
+* Los resultados obtenidos con el proyecto de medición de gases fueron exitosos, se logró en gran parte el funcionamiento tanto del sensor y su visualización como del GPS. Por otro lado, se encontraron inconvenientes en la toma de datos con el GPS ya que este presentó alta sensibilidad a cambios y no en tods los lugares de prueba permitía la triangulación de satélites.
+* Se generó una interfaz para el usuario para así poder entender gráficamente lo que ambos periféricos (sensor y GPS) proporcionan. Para ello se creó una página HTML independiente que pudo ser actualizada cada vez que el usuario orpimia el botón de cierre de ciclo.
+* Al  usar librerías propias y material de apoyo extra se logró un resultado más conduntente y robusto, es decir, una respuesta con número de errores bajo y con mayor facilidad de implementación y manejo
+*Se espera por tanto, que con los buenos resultados obtenidos pueda ser replicado el proyecto y ampliado a un rango más específico de gases tales como el butano y de esta forma solventar el problema inicial planteado.
+
+==  Trabajos futuros ==
+
+En trabajos futuros se deseraría hacer uso de un módem 3G o 4G para transmitir los datos por internet a un servidor, así cómo una forma de obtener una gráfica de gas y un mapa que se actualicen en tiempo real para obtener una lectura mucho más detallada de la ruta y de la cantidad de gas que se desea estudiar.La idea es orientar este sistema a un modelo de multiples nodos (las vacas) para poder no solo medir metano  y CO, sino ademas poder relacionar patrones como temperatura, humedad, luz solar y procesar los datos de manera remota para acceder a los datos mediante un servidor  y un portal online.
+
+= MATERIALES =
+== Dispositivos Hardware ==
+* Beaglebone Black (Hoja de datos) [http://beagleboard.org/Products/BeagleBone Descargar]
+* Sensor de gas MQ135 (Hoja de datos) [http://www.sigmaelectronica.net/mq-135-p-1875.html Descargar]
+* GPS L70 (Hoja de datos) [http://www.sigmaelectronica.net/tarjeta-p-1693.html Descargar]
+* CapeBoard
+** Se diseño e implemento una tarjeta de expansion, con la circuiteria del GPS y el sensor, ademas de los pulsadores necesarios para reducir espacios en la BeagleBone Black
+[[File:Jorfetiboard.png | 330 px]]
+
+== Herramientas Software ==
+* Sistema operativo Amstrong (BeagleBone Black)  ([http://beagleboard.org/Products/BeagleBone Descargar...])
+* GNUplot ([http://www.gnuplot.info Descargar...])
+* Google Maps ([https://maps.google.com Descargar...])
+*Libreria BBBio.h [[File:BBBio.h]]
+
+= CÓDIGO FUENTE =
+* Librerías implementadas:
+Para la implementación del codigo se creo una libreria para la BBB llamada BBBio.h  que debe estar en la misma carpeta de compilación de main.c y debe llamarse de la siguente manera :
+ #include "BBBio.h"
+
+Esta libreria contiene las siguentes funciones 
+ 
+**PIN_VALUE(int n) , devuelve el valor del pin digital GPIO
+**PIN_ON(int n), la salida del puerto GPIO n se enciende
+**PIN_OFF(int n) , la salida del puerto GPIO n se apaga
+**initAnalogPort(), enciente inicializa todos los puertos analogos
+**readADC(int n), lee el valor del ADC del puerto n
+**initDigitalPort(int n) , inicializa como entrada el puerto GPIO n
+**escribirxy_txt(double x , double y) , escribe un .txt con los datos en dos columnas
+**plot(), grafica los datos en una imagen png
+**int PIN_VALUE(int n), lee el valor de un PIN GPIO ya creado.
+** void HTML_LatLongWrite(double lat , double lon) , Funcion para modificar la pagina de API de Google Maps, con las coordenadas de entrada.
+**double read_GPS(int lat_on), esta función lee el valor del GPS latitud si la entrada es 1, longitud si la entrada es 0.
+
+
+
+
+BBBio.h
+
+Indicación inicial: Mientras botono Stop o cierre de ciclo ==0 se realiza el  EL WHILE DE LECTURA  que se presentará a continuación y si se pulsa se cierra el ciclo y el siguiente paso es la visualización en HTML<br>
+<font color ="blue">Declaración de librerias</font>
+ #include <stdio.h> 
+ #include <stdlib.h>
+ #include <string.h>
+ #include <time.h>
+ #include <math.h>
+
+<font color ="blue">Declaración de métodos</font><br>
+
+ int PIN_VALUE(int n);
+ void intToChar(int j,char indice[]);
+ void PIN_ON(int n);
+ void PIN_OFF(int n);
+ void PIN_BLINKING(int pin);
+ void HTML_LatLongWrite(double lat , double lon);
+ void updateGoogleMaps(void);
+ double Read_latGPS(int lat_out);
+ int readADC(int port);
+ void escribirxy_txt(float x,float y);
+ void plot(void);
+ void initAnalogPort();
+ void initDigitalPort(int port);
+
+<font color ="blue">Verificación de puertos(on/off)</font>
+
+void PIN_ON(int n)
+{
+  char command[100]="echo high > /sys/class/gpio/gpio";
+  char no_pin[2]="";
+  char comman_end[11]="/direction";
+  int j=n;
+  intToChar(j,no_pin);
+  strcat(command,no_pin);
+  strcat(command,comman_end);
+FILE *TestConsole= popen(command,"w");
+fclose(TestConsole);
+}
+
+
+
+void PIN_OFF(int n)
+{
+  char command[100]="echo low > /sys/class/gpio/gpio";
+  char no_pin[3]="";
+  char comman_end[11]="/direction";
+  int j=n;
+  intToChar(j,no_pin);
+  strcat(command,no_pin);
+  strcat(command,comman_end);
+FILE *TestConsole= popen(command,"w");
+fclose(TestConsole);
+}
+
+void PIN_BLINKING(int pin)
+{
+  while(1==1){
+  PIN_OFF(pin);
+  sleep(1);
+  PIN_ON(pin);
+  sleep(1);
+}
+}
+
+int PIN_VALUE(int n)
+{
+  FILE *in;
+  char command[100]="/sys/class/gpio/gpio";
+  char no_pin[2]="";
+  int valuePin=0;
+  char comman_end[11]="/value";
+  int j=n;
+  intToChar(j,no_pin);
+  strcat(command,no_pin);
+  strcat(command,comman_end);
+  char caracteres[3];
+  in = fopen(command,"r");
+  fgets(caracteres,2,in);
+  fclose(in);
+  if(caracteres[0]=='1'){valuePin=1;}
+  else {valuePin=0;}
+   return valuePin;
+}
+
+<font color ="blue">Reconocimiento de puertos análogos</font>
+ int readADC(int port)
+{
+    FILE *puerto;
+    if(port==0){
+     puerto = fopen("/sys/devices/ocp.2/helper.14/AIN0","r");
+    }
+    if(port==1){
+     puerto = fopen("/sys/devices/ocp.2/helper.14/AIN1","r");
+    }
+    if(port==2){
+     puerto = fopen("/sys/devices/ocp.2/helper.14/AIN2","r");
+    }
+    if(port==3){
+     puerto = fopen("/sys/devices/ocp.2/helper.14/AIN3","r");
+    }
+    char valor[5];
+    int totalADC,potencia,digitos;
+    fread(&valor,5,5,puerto);
+    int j;
+    digitos = 3;
+    for(j = 0 ; j < 4 ; j++)
+    {
+        if(valor[j] == 10)
+        {
+            digitos = j - 1;
+        }
+ 
+    }
+    totalADC = 0;
+    potencia = 1;
+    for(j = digitos ; j >= 0 ; j--)
+    {
+        totalADC += (valor[j] - 48)*potencia;
+        potencia*=10;
+    }
+ 
+    fclose(puerto);
+ 
+    return totalADC;
+}
+
+ <font color ="blue">Comando visualización en página HTML</font>
+ void HTML_LatLongWrite(double lat , double lon)
+{
+
+ char str_latitud[500];
+ sprintf(str_latitud,"%f",lat);
+ char str_longitud[500];
+ sprintf(str_longitud,"%f",lon);
+
+ printf("la latitud (string) es: %s N \n",str_latitud);
+ printf("la longitud (string) es: %s W \n",str_longitud);
+
+ FILE *in;
+ in = fopen("main_html.html","r+");
+ int fin=feof(in);
+ int i=0;
+ char caracteres[100];
+ char cadena1[200] = "center: new google.maps.LatLng( ";
+ char cadena3[200] = ",";
+ char cadena5[200] = "), \n";
+
+ strcat(cadena1,str_latitud);
+ strcat(cadena1,cadena3);
+ strcat(cadena1,str_longitud);
+ strcat(cadena1,cadena5);
+
+ while (feof(in) == 0){
+    fgets(caracteres,100,in);
+    i=i+1;
+ if(i==105){fputs( cadena1, in );break;}
+  }
+}
+
+ void updateGoogleMaps(void){
+ char command[100]="firefox main_html.html &";
+ FILE *TestConsole= popen(command,"r");
+ fclose(TestConsole);
+ }
+
+<font color ="blue">/////////// leer GPS //////////////////////////</font>
+
+ double Read_latGPS(int lat_out){
+<font color ="blue">//escribe en el primer archivo</font>
+ char command[500]="head -50 /dev/ttyO2 > ~/Desktop/jorgedatosgpsnuevoparquevean.txt";
+ FILE *TestConsole= popen(command,"w");
+ fclose(TestConsole);
+ printf("...Se hiso el cat..\n");
+<font color ="blue">se le hace el grep al archivo generando otro con sóo GPGLL</font>// 
+ char command1[500]=" grep '$GPGLL' ~/Desktop/jorgedatosgpsnuevoparquevean.txt > ~/Desktop/jorgelatlong.txt";
+ FILE *TestConsole1= popen(command1,"w");
+ fclose(TestConsole);
+ printf("...Se hiZo el grep...\n");
+
+ FILE *in;
+ in = fopen("jorgelatlong.txt","r+");
+ char latlong[200];
+ int length=0;
+    fgets(latlong,100,in);
+     printf("... ya se guardó la primera línea...\n");
+     
+ char *s;
+ int valido=0;
+ int c=0;
+  s = strchr (latlong, 'V');
+
+  if (s != NULL){
+    printf ("......found a 'V' at .......%s\n", s);
+ valido=0;
+ }else {printf(".....not found 'V' el dato es válido.........\n");
+ valido=1;}
+
+<font color ="blue">Pruebas con datos funcionales</font>// 
+
+// $GPGLL,0436.1094,N,07403.9133,W,200304.000,A,A*4
+
+ c = fgetc(in); //$
+ c = fgetc(in); //G
+ c = fgetc(in); //P
+ c = fgetc(in); //G
+ c = fgetc(in); //L
+ c = fgetc(in); //L
+ c = fgetc(in); // comma
+
+<font color ="blue">Segmentación de caracteres entregados por GPS</font>// <br>
+// North//
+ int g1N,g2N,m1N,m2N,m3N,m4N,m5N,m6N;
+
+ int gN=0;
+ int mN=0;
+ int norte=0;
+ //degrees
+ g1N = fgetc(in);
+ g2N = fgetc(in);
+ //minutes
+ m1N = fgetc(in);
+ m2N = fgetc(in);
+ c = fgetc(in); // punto
+ m3N = fgetc(in);
+ m4N = fgetc(in);
+ m5N = fgetc(in);
+ m6N = fgetc(in);
+ c = fgetc(in); // comma
+// north or south
+ norte= fgetc(in); // NORTE
+ c = fgetc(in); // comma
+
+// West//
+ int g1W,g2W,g3W,m1W,m2W,m3W,m4W,m5W,m6W;
+
+ int gW=0;
+ int mW=0;
+ int west=0;
+
+//degrees
+ g1W = fgetc(in);
+ g2W = fgetc(in);
+ g3W = fgetc(in);
+//minutes
+ m1W = fgetc(in);
+ m2W = fgetc(in);
+ c = fgetc(in);
+ m3W = fgetc(in);
+ m4W = fgetc(in);
+ m5W = fgetc(in);
+ m6W = fgetc(in);
+
+ c = fgetc(in);
+ west= fgetc(in);
+ c = fgetc(in);
+<font color ="blue">Impresión de coordenadas</font>
+ printf("El dato norte es : %c %c %c %c . %c %c %c %c \n",g1N,g2N,m1N,m2N,m3N,m4N,m5N,m6N);
+ printf("El dato oeste es : %c %c %c %c %c . %c %c %c %c \n",g1W,g2W,g3W,m1W,m2W,m3W,m4W,m5W,m6W);
+
+<font color ="blue">Conversi'on de unidades del GPS a las admitidas por Google Maps</font>
+ //double latitud=(10*g1N+g2N)+((10*m1N+m2N)+(0.1*m3N+0.01*m4N+0.001*m5N+0.0001*m6N))/60;
+ //double longitud=(100*g1W+10*g2W+g3W)+((10*m1W+m2W)+(0.1*m3W+0.01*m4W+0.001*m5W+0.0001*m6W))/60;
+
+ /*double latitud=(10*3+7)+((10*3+8)+(0.1*5+0.01*8+0.001*0+0.0001*7))/60;
+ double longitud=(100*0+10*5+0)+((10*1+6)+(0.1*1+0.01*2+0.001*2+0.0001*9))/60;*/
+
+ double latitud=28.535219;
+ double longitud=(-1)*81.382456;
+
+ //double latitud=0;
+ //double longitud=0;
+
+ printf("la latitud es: %f N \n",latitud);
+ printf("la longitud es: %f W \n",longitud);
+
+ char str_latitud[500];
+ sprintf(str_latitud,"%f",latitud);
+ char str_longitud[500];
+ sprintf(str_longitud,"%f",longitud);
+
+ printf("la latitud (string) es: %s N \n",str_latitud);
+ printf("la longitud (string) es: %s W \n",str_longitud);
+
+ if(lat_out==1){return latitud;}
+ else{return longitud;}
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ void escribirxy_txt(float x,float y){
+  FILE *fileout;
+  int i=0;
+  char filename[26]="Data";
+  char format[5]=".txt";
+
+  strcat(filename,format);
+  
+  fileout=fopen(filename,"a");
+  fprintf(fileout,"%f %f\n",x,y);
+  fclose(fileout);
+
+}
+
+ void initAnalogPort(){
+ char command[100]="echo cape-bone-iio > /sys/devices/bone_capemgr.8/slots";
+ FILE *TestConsole= popen(command,"w");
+ fclose(TestConsole);
+}
+
+
+
+ void initDigitalPort(int port){
+ char command[100]="echo ";
+  char no_pin[2]="";
+  char comman_end[100]=" > /sys/class/gpio/export";
+  int j=port;
+  intToChar(j,no_pin);
+  strcat(command,no_pin);
+  strcat(command,comman_end);
+  printf("|||..El comando es %s..|||\n",command);
+ FILE *TestConsole= popen(command,"w");
+ fclose(TestConsole);
+
+}
+ void plot(void){
+ FILE *gplot = popen("gnuplot -persist","w");
+  fprintf(gplot, "set term png\n");
+  fprintf(gplot, "set output 'Plot_Data.png'\n");
+  fprintf(gplot, "set xlabel 'Segundos\n");
+  fprintf(gplot, "set ylabel 'Concentracion de CO2 [ppm]'\n");
+  
+  fprintf(gplot, "set title 'Gas(t)'\n");
+  fprintf(gplot, "unset key\n");
+  fprintf(gplot, "plot 'Data.txt'\n");
+  fclose(gplot);
+}
+
+<font color ="blue">Conversión entero a caracter</font>// 
+
+ void intToChar(int j,char indice[]){
+ if(j==0){strcat(indice,"0");}
+ if(j==1){strcat(indice,"1");}
+ if(j==2){strcat(indice,"2");}
+ if(j==3){strcat(indice,"3");}
+ if(j==4){strcat(indice,"4");}
+ if(j==5){strcat(indice,"5");}
+ if(j==6){strcat(indice,"6");}
+ if(j==7){strcat(indice,"7");}
+ if(j==8){strcat(indice,"8");}
+ if(j==9){strcat(indice,"9");}
+ if(j==10){strcat(indice,"10");}
+ if(j==11){strcat(indice,"11");}
+ if(j==12){strcat(indice,"12");}
+ if(j==13){strcat(indice,"13");}
+ if(j==14){strcat(indice,"14");}
+ if(j==15){strcat(indice,"15");}
+ if(j==16){strcat(indice,"16");}
+ if(j==17){strcat(indice,"17");}
+ if(j==18){strcat(indice,"18");}
+ if(j==19){strcat(indice,"19");}
+ if(j==20){strcat(indice,"20");}
+ if(j==21){strcat(indice,"21");}
+ if(j==22){strcat(indice,"22");}
+ if(j==23){strcat(indice,"23");}
+ if(j==24){strcat(indice,"24");}
+ if(j==25){strcat(indice,"25");}
+ if(j==26){strcat(indice,"26");}
+ if(j==27){strcat(indice,"27");}
+ if(j==28){strcat(indice,"28");}
+ if(j==29){strcat(indice,"29");}
+ if(j==30){strcat(indice,"30");}
+ if(j==31){strcat(indice,"31");}
+ if(j==32){strcat(indice,"32");}
+ if(j==33){strcat(indice,"33");}
+ if(j==34){strcat(indice,"34");}
+ if(j==35){strcat(indice,"35");}
+ if(j==36){strcat(indice,"36");}
+ if(j==37){strcat(indice,"37");}
+ if(j==38){strcat(indice,"38");}
+ if(j==39){strcat(indice,"39");}
+ if(j==40){strcat(indice,"40");}
+ if(j==41){strcat(indice,"41");}
+ if(j==42){strcat(indice,"42");}
+ if(j==43){strcat(indice,"43");}
+ if(j==44){strcat(indice,"44");}
+ if(j==45){strcat(indice,"45");}
+ if(j==46){strcat(indice,"46");}
+ if(j==47){strcat(indice,"47");}
+ if(j==48){strcat(indice,"48");}
+ if(j==49){strcat(indice,"49");}
+ if(j==50){strcat(indice,"50");}
+ if(j==51){strcat(indice,"51");}
+ if(j==52){strcat(indice,"52");}
+ if(j==53){strcat(indice,"53");}
+ if(j==54){strcat(indice,"54");}
+ if(j==55){strcat(indice,"55");}
+ if(j==56){strcat(indice,"56");}
+ if(j==57){strcat(indice,"57");}
+ if(j==58){strcat(indice,"58");}
+ if(j==59){strcat(indice,"59");}
+ if(j==60){strcat(indice,"60");}
+ if(j==61){strcat(indice,"61");}
+ if(j==62){strcat(indice,"62");}
+ if(j==63){strcat(indice,"63");}
+ if(j==64){strcat(indice,"64");}
+ if(j==65){strcat(indice,"65");}
+ if(j==66){strcat(indice,"66");}
+ if(j==67){strcat(indice,"67");}
+ if(j==68){strcat(indice,"68");}
+ if(j==69){strcat(indice,"69");}
+ if(j==70){strcat(indice,"70");}
+ if(j==71){strcat(indice,"71");}
+ if(j==72){strcat(indice,"72");}
+ if(j==73){strcat(indice,"73");}
+ if(j==74){strcat(indice,"74");}
+ if(j==75){strcat(indice,"75");}
+ if(j==76){strcat(indice,"76");}
+ if(j==77){strcat(indice,"77");}
+ if(j==78){strcat(indice,"78");}
+ if(j==79){strcat(indice,"79");}
+ if(j==80){strcat(indice,"80");}
+ if(j==81){strcat(indice,"81");}
+ if(j==82){strcat(indice,"82");}
+ if(j==83){strcat(indice,"83");}
+ if(j==84){strcat(indice,"84");}
+ if(j==85){strcat(indice,"85");}
+ if(j==86){strcat(indice,"86");}
+ if(j==87){strcat(indice,"87");}
+ if(j==88){strcat(indice,"88");}
+ if(j==89){strcat(indice,"89");}
+ if(j==90){strcat(indice,"90");}
+ if(j==91){strcat(indice,"91");}
+ if(j==92){strcat(indice,"92");}
+ if(j==93){strcat(indice,"93");}
+ if(j==94){strcat(indice,"94");}
+ if(j==95){strcat(indice,"95");}
+ if(j==96){strcat(indice,"96");}
+ if(j==97){strcat(indice,"97");}
+ if(j==98){strcat(indice,"98");}
+ if(j==99){strcat(indice,"99");}
+ if(j==100){strcat(indice,"100");}
+}
+
+
+* Archivos Programación  ([https://www.dropbox.com/sh/95c62k7iawww5zq/37UvAUy-Wf Descargar...])
+* Archivos Fuente  ([https://www.dropbox.com/sh/95c62k7iawww5zq/37UvAUy-Wf  Descargar])
+
+== Publicidad ==
+* Archivos LOGO  ([http://www.example.com/archi11.zip  Descargar...])
+* Archivos P  ([http://www.example.com/archi22.zip  Descargar...])
 
 = BIBLIOGRAFIA =
-* [1] Armstrong, D. ''Getting Started with BeagleBone Black''. (2013) ([http://www.circuidipity.com/getting-started-with-beaglebone-black.html Descargar...])
+* [1]Allison, E. (2013). ''Methane Hydrates Could be the Next Natural Gas Bonanza''. AAPG GEO-DC Blog. Recuperado de ([http://blog.aapg.org/geodc/?p=2935 Abrir ...])
+* [2] Armstrong, D. ''Getting Started with BeagleBone Black''. (2013) ([http://www.circuidipity.com/getting-started-with-beaglebone-black.html Getting Start..])
+* [3] eLinux.Puertos GPIO en Linux Embebido (2013) ([http://elinux.org/GPIO] Puertos GPIO)
+* [4] Armstrong,d. "BeagleBone Black: 'Say Hello to My Little LEDs'" .(2013) ([http://www.circuidipity.com/bbb-led.html Configuración puertos BeagleBone Black])
+* [5] Libreria en C para BeagleBone Black (2013) [http://www.element14.com/community/community/knode/single-board_computers/next-gen_beaglebone/blog/2013/10/10/bbb--beaglebone-black-io-library-for-c]
